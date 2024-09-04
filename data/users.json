@@ -1,0 +1,31 @@
+[
+  {
+    "username": "PawsAndPlay",
+    "email": "pawsandplay@example.com",
+    "password": "BarkLover123!",
+    "isOrganiser": true,
+    "eventsAttending": [
+      "Paws in the Park"
+    ]
+  },
+  {
+    "username": "WoofWanderer",
+    "email": "woofwanderer@example.com",
+    "password": "DoggoTrail4Ever!",
+    "isOrganiser": false,
+    "eventsAttending": [
+      "Doggy Dash Derby",
+      "Fetch Fest"
+    ]
+  },
+  {
+    "username": "FetchMaster",
+    "email": "fetchmaster@example.com",
+    "password": "BallChaser2024!",
+    "isOrganiser": true,
+    "eventsAttending": [
+      "Paws in the Park",
+      "Doggy Dash Derby"
+    ]
+  }
+]

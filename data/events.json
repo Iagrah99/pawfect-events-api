@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Paws in the Park",
+    "organiser": "PawsAndPlay",
+    "description": "A fun-filled day in the park.",
+    "event_type": "Dog Show",
+    "priceInPence": 1500,
+    "location": "London",
+    "attendees": [
+      "PawsAndPlay",
+      "FetchMaster"
+    ]
+  },
+  {
+    "title": "Doggy Dash Derby",
+    "organiser": "PawsAndPlay",
+    "description": "Join us for an exciting dog race.",
+    "event_type": "Dog Show",
+    "priceInPence": 2000,
+    "location": "Manchester",
+    "attendees": [
+      "WoofWanderer",
+      "FetchMaster"
+    ]
+  },
+  {
+    "title": "Fetch Fest",
+    "organiser": "FetchMaster",
+    "description": "A festival dedicated to all things fetch!",
+    "event_type": "Dog Training",
+    "priceInPence": 1200,
+    "location": "Bristol",
+    "attendees": [
+      "WoofWanderer"
+    ]
+  }
+]

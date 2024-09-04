@@ -41,7 +41,7 @@ INSERT INTO events
 VALUES
   ('Paws in the Park', 'PawsAndPlay', 'A fun-filled day in the park.', 'Dog Show', 1500, 'London'),
   ('Doggy Dash Derby', 'PawsAndPlay', 'Join us for an exciting dog race.', 'Dog Show', 2000, 'Manchester'),
-  ('Fetch Fest', 'FetchMaster', 'Dog Training', 'A festival dedicated to all things fetch!', 1200, 'Bristol');
+  ('Fetch Fest', 'FetchMaster', 'A festival dedicated to all things fetch!', 'Dog Training', 1200, 'Bristol');
 
 INSERT INTO users_events
   (user_id, event_id)
