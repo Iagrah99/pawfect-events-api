@@ -1,7 +1,8 @@
 const { Pool } = require('pg');
 
-const db = new Pool({
-  database: 'dog_events_test',
-});
+if (!process.env.PGDATABASE) {
+  throw new Error('no PGDATABASE set!');
+}
+const db = new Pool();
 
-const eventsData = await db.query('SELECT * FROM events;');
+module.exports = db;

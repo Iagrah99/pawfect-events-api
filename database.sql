@@ -1,7 +1,7 @@
-DROP DATABASE IF EXISTS dog_events_test;
-CREATE DATABASE dog_events_test;
+DROP DATABASE IF EXISTS dog_events;
+CREATE DATABASE dog_events;
 
-\c dog_events_test
+\c dog_events
 
 CREATE TABLE users(
   user_id SERIAL PRIMARY KEY,
@@ -46,7 +46,7 @@ VALUES
 INSERT INTO users_events
   (user_id, event_id)
 VALUES
-  (1,1), (1,2), (1,3), (3,2), (3,1), (2,2), (2,1), (3,3);
+  (1,1), (1,2), (1,3), (2,1), (2,2), (3,1), (3,2), (3,3);
 
 SELECT 
     users_events.user_id, 
