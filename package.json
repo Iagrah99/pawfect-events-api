@@ -8,7 +8,8 @@
     "dev": "nodemon server.js",
     "start": "node server.js",
     "setup-dbs": "psql -f ./db/setup.sql",
-    "setup-test-dbs": "psql -f ./database.sql"
+    "setup-test-dbs": "psql -f ./database.sql",
+    "seed": "PGDATABASE=dog_events node ./db/run-seed.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
   "devDependencies": {
     "jest": "^29.7.0",
     "nodemon": "^3.1.4",
+    "pg-format": "^1.0.4",
     "supertest": "^7.0.0"
   }
 }

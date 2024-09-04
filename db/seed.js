@@ -1,4 +1,7 @@
 const connection = require('./connection');
+const usersData = require('./data/users.json');
+const eventsData = require('./data/events.json');
+const format = require('pg-format');
 
 async function seed() {
   await connection.query('DROP TABLE IF EXISTS users_events');
@@ -42,6 +45,70 @@ async function seed() {
       );
     `
   );
+
+  const insertUsersQuery = format(
+    `
+      INSERT INTO users
+      (username, email, password, is_organiser)
+      VALUES
+      %L
+    `,
+    usersData.map((user) => {
+      return [user.username, user.email, user.password, user.isOrganiser];
+    })
+  );
+  await connection.query(insertUsersQuery);
+
+  const insertEventsQuery = format(
+    `
+      INSERT INTO events
+      (title, organiser, description, event_type, price_in_pence, location)
+      VALUES
+      %L
+    `,
+    eventsData.map((event) => {
+      return [
+        event.title,
+        event.organiser,
+        event.description,
+        event.event_type,
+        event.priceInPence,
+        event.location,
+      ];
+    })
+  );
+  await connection.query(insertEventsQuery);
+
+  const usersEventsValues = [];
+
+  for (const user of usersData) {
+    const eventAttendee = await connection.query(
+      'SELECT user_id FROM users WHERE username = $1',
+      [user.username]
+    );
+
+    const userId = eventAttendee.rows[0].user_id;
+
+    for (const eventTitle of user.eventsAttending) {
+      const eventResponse = await connection.query(
+        'SELECT event_id FROM events WHERE title = $1',
+        [eventTitle]
+      );
+      const eventId = eventResponse.rows[0].event_id;
+
+      usersEventsValues.push([userId, eventId]);
+    }
+  }
+
+  const insertUsersEventsQuery = format(
+    `
+      INSERT INTO users_events (user_id, event_id)
+      VALUES %L
+    `,
+    usersEventsValues
+  );
+
+  await connection.query(insertUsersEventsQuery);
 }
 
 module.exports = seed;

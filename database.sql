@@ -23,12 +23,14 @@ VALUES
   (1,1), (1,2), (1,3), (2,1), (2,2), (3,1), (3,2), (3,3);
 
 SELECT 
-    users_events.user_id, 
-    users_events.event_id, 
-    events.title
+    events.title AS event,
+    users_events.event_id,
+    users.username AS attendee,
+    users_events.user_id AS attendee_id
 FROM 
     users_events
 JOIN 
     users ON users_events.user_id = users.user_id
 JOIN 
     events ON users_events.event_id = events.event_id;
+
