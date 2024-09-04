@@ -23,6 +23,12 @@ CREATE TABLE events(
   location VARCHAR(70) NOT NULL
 );
 
+CREATE TABLE users_events (
+  user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE,
+  event_id INTEGER REFERENCES events(event_id) ON DELETE CASCADE,
+  PRIMARY KEY (user_id, event_id)
+);
+
 INSERT INTO users
   (username, email, password, is_organiser)
 VALUES
@@ -33,6 +39,22 @@ VALUES
 INSERT INTO events
   (title, organiser, description, event_type, price_in_pence, location)
 VALUES
-  ('Paws in the Park', 'PawsAndPlay', 'A fun-filled day in the park with agility courses, doggy meetups, and plenty of treats for your furry friends.', 'Dog Show', 1500, 'London'),
-  ('Doggy Dash Derby', 'PawsAndPlay', 'Join us for an exciting dog race event where your pups can show off their speed and win some great prizes!', 'Dog Show', 2000, 'Manchester'),
-  ('Fetch Fest', 'FetchMaster', 'Dog Training', 'A festival dedicated to all things fetch! Bring your dog and compete in fetch competitions or just enjoy the fun activities.', 1200, 'Bristol');
+  ('Paws in the Park', 'PawsAndPlay', 'A fun-filled day in the park.', 'Dog Show', 1500, 'London'),
+  ('Doggy Dash Derby', 'PawsAndPlay', 'Join us for an exciting dog race.', 'Dog Show', 2000, 'Manchester'),
+  ('Fetch Fest', 'FetchMaster', 'Dog Training', 'A festival dedicated to all things fetch!', 1200, 'Bristol');
+
+INSERT INTO users_events
+  (user_id, event_id)
+VALUES
+  (1,1), (1,2), (1,3), (3,2), (3,1), (2,2), (2,1), (3,3);
+
+SELECT 
+    users_events.user_id, 
+    users_events.event_id, 
+    events.title
+FROM 
+    users_events
+JOIN 
+    users ON users_events.user_id = users.user_id
+JOIN 
+    events ON users_events.event_id = events.event_id;
