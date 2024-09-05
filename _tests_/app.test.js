@@ -5,12 +5,10 @@ const db = require('../db/connection');
 afterAll(() => db.end());
 
 describe('GET /api/users', () => {
-  test('status code: 200', () => {
-    return request(app).get('/api/users').expect(200);
-  });
-  test('should respond with an array of user objects', () => {
+  test('status 200: should respond with an array of user objects with all their properties', () => {
     return request(app)
       .get('/api/users')
+      .expect(200)
       .then(({ body }) => {
         const { users } = body;
         expect(Array.isArray(users)).toBe(true);

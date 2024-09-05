@@ -32,7 +32,8 @@ async function seed() {
         end_date TIMESTAMP(0) DEFAULT (NOW() + INTERVAL '1 day') NOT NULL,
         event_type VARCHAR NOT NULL,
         price_in_pence INT,
-        location VARCHAR(70) NOT NULL
+        location VARCHAR(70) NOT NULL,
+        image VARCHAR NOT NULL
       );
     `
   );
@@ -69,7 +70,7 @@ async function seed() {
   const insertEventsQuery = format(
     `
       INSERT INTO events
-      (title, organiser, description, event_type, price_in_pence, location)
+      (title, organiser, description, event_type, price_in_pence, location, image)
       VALUES
       %L
     `,
@@ -81,6 +82,7 @@ async function seed() {
         event.event_type,
         event.priceInPence,
         event.location,
+        event.image,
       ];
     })
   );
