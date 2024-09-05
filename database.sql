@@ -24,9 +24,9 @@ VALUES
 
 SELECT 
     events.title AS event,
-    users_events.event_id,
-    users.username AS attendee,
-    users_events.user_id AS attendee_id
+    --users_events.event_id,
+    users.username AS attendee
+    --users_events.user_id AS attendee_id
 FROM 
     users_events
 JOIN 

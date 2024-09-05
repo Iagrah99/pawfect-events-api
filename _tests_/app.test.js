@@ -51,7 +51,7 @@ describe('GET /api/users/:user_id', () => {
 });
 
 describe('GET /api/events', () => {
-  test('status 200 should respond with an array of event objects with all their properties', () => {
+  test('status 200: should respond with an array of event objects with all their properties', () => {
     return request(app)
       .get('/api/events')
       .expect(200)
@@ -71,6 +71,29 @@ describe('GET /api/events', () => {
             location: expect.any(String),
             image: expect.any(String),
           });
+        });
+      });
+  });
+});
+
+describe('GET /api/events/:event_id', () => {
+  test('status 200: should respond with the event object associated with the specified event_id ', () => {
+    return request(app)
+      .get('/api/events/1')
+      .expect(200)
+      .then(({ body }) => {
+        const { event } = body;
+        expect(event).toMatchObject({
+          event_id: 1,
+          title: 'Paws in the Park',
+          organiser: 'PawsAndPlay',
+          start_date: expect.any(String),
+          end_date: expect.any(String),
+          description: 'A fun-filled day in the park.',
+          event_type: 'Dog Show',
+          price_in_pence: 1500,
+          location: 'London',
+          image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
         });
       });
   });
