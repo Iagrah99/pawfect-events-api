@@ -49,3 +49,29 @@ describe('GET /api/users/:user_id', () => {
       });
   });
 });
+
+describe('GET /api/events', () => {
+  test('status 200 should respond with an array of event objects with all their properties', () => {
+    return request(app)
+      .get('/api/events')
+      .expect(200)
+      .then(({ body }) => {
+        const { events } = body;
+        expect(Array.isArray(events)).toBe(true);
+        events.forEach((event) => {
+          expect(event).toMatchObject({
+            event_id: expect.any(Number),
+            title: expect.any(String),
+            organiser: expect.any(String),
+            start_date: expect.any(String),
+            end_date: expect.any(String),
+            description: expect.any(String),
+            event_type: expect.any(String),
+            price_in_pence: expect.any(Number),
+            location: expect.any(String),
+            image: expect.any(String),
+          });
+        });
+      });
+  });
+});
