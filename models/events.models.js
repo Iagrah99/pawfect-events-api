@@ -1,4 +1,5 @@
 const db = require('../db/connection');
+const { fetchUserById } = require('./users.models');
 
 module.exports.fetchEvents = () => {
   return db.query('SELECT * FROM events').then(({ rows }) => {
@@ -12,4 +13,22 @@ module.exports.fetchEventById = (id) => {
     .then(({ rows }) => {
       return rows[0];
     });
+};
+
+module.exports.fetchEventAttendees = async (event_id) => {
+  const eventAttendees = (
+    await db.query('SELECT user_id FROM users_events WHERE event_id = $1', [
+      event_id,
+    ])
+  ).rows;
+
+  const attendeeUsernames = await Promise.all(
+    eventAttendees.map(async (attendee) => {
+      const user_id = attendee.user_id;
+      const user = (await fetchUserById(user_id)).username;
+      return user;
+    })
+  );
+
+  return { attendees: attendeeUsernames };
 };
