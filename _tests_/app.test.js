@@ -50,6 +50,19 @@ describe('GET /api/users/:user_id', () => {
   });
 });
 
+describe('GET /api/users/:user_id/attending', () => {
+  test('status 200: should respond with an object with the string "eventsAttending" as the key, and an array of events as its value', () => {
+    return request(app)
+      .get('/api/users/1/attending')
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toMatchObject({
+          eventsAttending: ['Paws in the Park'],
+        });
+      });
+  });
+});
+
 describe('GET /api/events', () => {
   test('status 200: should respond with an array of event objects with all their properties', () => {
     return request(app)
@@ -100,7 +113,7 @@ describe('GET /api/events/:event_id', () => {
 });
 
 describe('GET /api/events/:event_id/attendees', () => {
-  test('status 200: should respond with an object containing an event title as the key, and an array of attendees as its value', () => {
+  test('status 200: should respond with an object with a key of attendees, and an array of individual attendees as its value', () => {
     return request(app)
       .get('/api/events/1/attendees')
       .expect(200)
