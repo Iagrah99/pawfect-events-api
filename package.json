@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "PGDATABASE=dog_events jest",
-    "dev": "nodemon listen.js",
+    "dev": "PGDATABASE=dog_events nodemon listen.js",
     "start": "node listen.js",
     "setup-dbs": "psql -f ./db/setup.sql",
     "setup-test-dbs": "psql -f ./database.sql",
