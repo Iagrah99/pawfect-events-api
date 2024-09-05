@@ -15,7 +15,8 @@ async function seed() {
         username VARCHAR(40) UNIQUE NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(40) NOT NULL,
-        is_organiser BOOLEAN NOT NULL
+        is_organiser BOOLEAN NOT NULL,
+        avatar_url VARCHAR(255) NOT NULL
       );
     `
   );
@@ -49,12 +50,18 @@ async function seed() {
   const insertUsersQuery = format(
     `
       INSERT INTO users
-      (username, email, password, is_organiser)
+      (username, email, password, is_organiser, avatar_url)
       VALUES
       %L
     `,
     usersData.map((user) => {
-      return [user.username, user.email, user.password, user.isOrganiser];
+      return [
+        user.username,
+        user.email,
+        user.password,
+        user.isOrganiser,
+        user.avatarUrl,
+      ];
     })
   );
   await connection.query(insertUsersQuery);

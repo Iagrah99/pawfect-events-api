@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
-    "dev": "nodemon server.js",
-    "start": "node server.js",
+    "test": "PGDATABASE=dog_events jest",
+    "dev": "nodemon listen.js",
+    "start": "node listen.js",
     "setup-dbs": "psql -f ./db/setup.sql",
     "setup-test-dbs": "psql -f ./database.sql",
     "seed": "PGDATABASE=dog_events node ./db/run-seed.js"
