@@ -1,17 +1,13 @@
 const db = require('../db/connection');
 
-module.exports.fetchEvents = () => {
-  return db.query('SELECT * FROM events').then(({ rows }) => {
-    return rows;
-  });
+module.exports.fetchEvents = async () => {
+  return (await db.query('SELECT * FROM events')).rows;
 };
 
-module.exports.fetchEventById = (id) => {
-  return db
-    .query('SELECT * FROM events WHERE event_id = $1', [id])
-    .then(({ rows }) => {
-      return rows[0];
-    });
+module.exports.fetchEventById = async (event_id) => {
+  return (
+    await db.query('SELECT * FROM events WHERE event_id = $1', [event_id])
+  ).rows[0];
 };
 
 module.exports.fetchEventAttendees = async (event_id) => {
