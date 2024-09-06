@@ -15,6 +15,9 @@ const app = express();
 app.get('/api/users', getUsers);
 app.get('/api/users/:user_id', getUserById);
 app.get('/api/users/:user_id/attending', getUserEventsAttending);
+// post /api/users
+// Encrypt password with bcrypt?
+// JWT authentication?
 
 app.get('/api/events', getEvents);
 app.get('/api/events/:event_id', getEventById);
