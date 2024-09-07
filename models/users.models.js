@@ -36,3 +36,26 @@ module.exports.fetchEventsAttending = async (user_id) => {
 
   return { eventsAttending: eventTitles };
 };
+
+module.exports.addUser = async (
+  username,
+  email,
+  password,
+  isOrganiser,
+  avatarUrl
+) => {
+  const addedUser = (
+    await db.query(
+      `
+      INSERT INTO users
+        (username, email, password, is_organiser, avatar_url)
+      VALUES
+        ($1, $2, $3, $4, $5)
+      RETURNING *;
+    `,
+      [username, email, password, isOrganiser, avatarUrl]
+    )
+  ).rows[0];
+
+  return addedUser;
+};

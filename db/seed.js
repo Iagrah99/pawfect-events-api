@@ -14,7 +14,7 @@ async function seed() {
         user_id SERIAL PRIMARY KEY,
         username VARCHAR(40) UNIQUE NOT NULL,
         email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(40) NOT NULL,
+        password VARCHAR(100) NOT NULL,
         is_organiser BOOLEAN NOT NULL,
         avatar_url VARCHAR(255) NOT NULL
       );

@@ -3,6 +3,7 @@ const {
   getUsers,
   getUserById,
   getUserEventsAttending,
+  registerUser,
 } = require('./controllers/users.controllers.js');
 const {
   getEvents,
@@ -12,9 +13,12 @@ const {
 
 const app = express();
 
+app.use(express.json());
+
 app.get('/api/users', getUsers);
 app.get('/api/users/:user_id', getUserById);
 app.get('/api/users/:user_id/attending', getUserEventsAttending);
+app.post('/api/users', registerUser);
 // post /api/users
 // Encrypt password with bcrypt?
 // JWT authentication?

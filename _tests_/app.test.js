@@ -124,3 +124,29 @@ describe('GET /api/events/:event_id/attendees', () => {
       });
   });
 });
+
+describe('POST /api/users', () => {
+  test('status 201: should respond with the user object that was created with the correct properties', () => {
+    return request(app)
+      .post('/api/users')
+      .send({
+        username: 'New User',
+        email: 'newuser@email.com',
+        password: 'NewUser123!',
+        isOrganiser: false,
+        avatarUrl: 'https://i.ibb.co/db7BbZ6/default-dog.png',
+      })
+      .expect(201)
+      .then(({ body }) => {
+        const { newUser } = body;
+        expect(newUser).toMatchObject({
+          user_id: 4,
+          username: expect.any(String),
+          email: expect.any(String),
+          password: expect.any(String),
+          is_organiser: expect.any(Boolean),
+          avatar_url: expect.any(String),
+        });
+      });
+  });
+});
