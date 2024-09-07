@@ -40,7 +40,7 @@ describe('GET /api/users/:user_id', () => {
           user_id: 1,
           username: 'PawsAndPlay',
           email: 'pawsandplay@example.com',
-          password: 'BarkLover123!',
+          password: expect.any(String),
           is_organiser: true,
           avatar_url: 'https://i.ibb.co/db7BbZ6/default-dog.png',
         });
@@ -143,6 +143,28 @@ describe('POST /api/users', () => {
           email: 'newuser@email.com',
           password: expect.any(String),
           is_organiser: false,
+          avatar_url: 'https://i.ibb.co/db7BbZ6/default-dog.png',
+        });
+      });
+  });
+});
+
+describe('POST /api/users/login', () => {
+  test('status 201: should respond with the user object that was created with their user details if provided correct login credentials ', () => {
+    return request(app)
+      .post('/api/users/login')
+      .send({
+        email: 'fetchmaster@example.com',
+        password: 'BallChaser2024!',
+      })
+      .expect(201)
+      .then(({ body }) => {
+        const { user } = body;
+        expect(user).toMatchObject({
+          user_id: 3,
+          username: 'FetchMaster',
+          email: 'fetchmaster@example.com',
+          is_organiser: true,
           avatar_url: 'https://i.ibb.co/db7BbZ6/default-dog.png',
         });
       });

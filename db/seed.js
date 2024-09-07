@@ -2,6 +2,7 @@ const connection = require('./connection');
 const usersData = require('./data/users.json');
 const eventsData = require('./data/events.json');
 const format = require('pg-format');
+const bcrypt = require('bcrypt');
 
 async function seed() {
   await connection.query('DROP TABLE IF EXISTS users_events');
@@ -48,23 +49,31 @@ async function seed() {
     `
   );
 
-  const insertUsersQuery = format(
-    `
-      INSERT INTO users
-      (username, email, password, is_organiser, avatar_url)
-      VALUES
-      %L
-    `,
-    usersData.map((user) => {
+  const hashedUsersData = await Promise.all(
+    usersData.map(async (user) => {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(user.password, salt);
+
       return [
         user.username,
         user.email,
-        user.password,
+        hashedPassword,
         user.isOrganiser,
         user.avatarUrl,
       ];
     })
   );
+
+  const insertUsersQuery = format(
+    `
+    INSERT INTO users
+    (username, email, password, is_organiser, avatar_url)
+    VALUES
+    %L
+  `,
+    hashedUsersData
+  );
+
   await connection.query(insertUsersQuery);
 
   const insertEventsQuery = format(

@@ -5,6 +5,7 @@ const {
   fetchUserById,
   fetchEventsAttending,
   addUser,
+  fetchUser,
 } = require('../models/users.models.js');
 
 module.exports.getUsers = async (req, res) => {
@@ -45,4 +46,25 @@ module.exports.registerUser = async (req, res) => {
     avatarUrl
   );
   res.status(201).send({ newUser });
+};
+
+module.exports.loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  const user = await fetchUser(email);
+  console.log(user);
+
+  if (user && (await bcrypt.compare(password, user.password))) {
+    const userDetails = {
+      user_id: user.user_id,
+      username: user.username,
+      email: user.email,
+      is_organiser: user.is_organiser,
+      avatar_url: user.avatar_url,
+    };
+    res.status(201).send({ user: userDetails });
+  } else {
+    res.status(400);
+    throw new Error('Invalid credentials');
+  }
 };

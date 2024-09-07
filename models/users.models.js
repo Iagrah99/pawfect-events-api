@@ -63,3 +63,11 @@ module.exports.addUser = async (
 
   return addedUser;
 };
+
+module.exports.fetchUser = async (user_email) => {
+  const userInfo = (
+    await db.query(`SELECT * FROM users WHERE email = $1`, [user_email])
+  ).rows[0];
+
+  return userInfo;
+};
