@@ -6,6 +6,7 @@ const {
   fetchEventsAttending,
   addUser,
   fetchUser,
+  postUserEventAttending,
 } = require('../models/users.models.js');
 
 module.exports.getUsers = async (req, res) => {
@@ -52,7 +53,6 @@ module.exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await fetchUser(email);
-  console.log(user);
 
   if (user && (await bcrypt.compare(password, user.password))) {
     const userDetails = {
@@ -67,4 +67,15 @@ module.exports.loginUser = async (req, res) => {
     res.status(400);
     throw new Error('Invalid credentials');
   }
+};
+
+module.exports.addUserEventsAttending = async (req, res) => {
+  const { username, eventAttending } = req.body;
+  const eventsAttending = await fetchEventsAttending(
+    (
+      await postUserEventAttending(username, eventAttending)
+    ).user_id
+  );
+
+  res.status(201).send(eventsAttending);
 };

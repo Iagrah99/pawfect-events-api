@@ -51,11 +51,11 @@ describe('GET /api/users/:user_id', () => {
 describe('GET /api/users/:user_id/attending', () => {
   test('status 200: should respond with an object with the string "eventsAttending" as the key, and an array of events as its value for the user with the specified user_id', () => {
     return request(app)
-      .get('/api/users/1/attending')
+      .get('/api/users/2/attending')
       .expect(200)
       .then(({ body }) => {
         expect(body).toMatchObject({
-          eventsAttending: ['Paws in the Park'],
+          eventsAttending: ['Doggy Dash Derby', 'Fetch Fest'],
         });
       });
   });
@@ -166,6 +166,25 @@ describe('POST /api/users/login', () => {
           email: 'fetchmaster@example.com',
           is_organiser: true,
           avatar_url: 'https://i.ibb.co/db7BbZ6/default-dog.png',
+        });
+      });
+  });
+});
+
+describe('POST /api/users/:user_id/attending', () => {
+  test('status 201: should respond with an object with the string "eventsAttending" as the key, and an updated array of events as its value for the user with the specified user_id with the added event appended to the array', () => {
+    return request(app)
+      .post('/api/users/1/attending')
+      .send({
+        username: 'PawsAndPlay',
+        // Add a specific event to the array
+        eventAttending: 'Doggy Dash Derby',
+      })
+      .expect(201)
+      .then(({ body }) => {
+        expect(body).toMatchObject({
+          // Responds with the updated array of events the user is attending
+          eventsAttending: ['Paws in the Park', 'Doggy Dash Derby'],
         });
       });
   });

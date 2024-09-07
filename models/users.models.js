@@ -71,3 +71,30 @@ module.exports.fetchUser = async (user_email) => {
 
   return userInfo;
 };
+
+module.exports.postUserEventAttending = async (username, eventAttending) => {
+  const { user_id } = (
+    await db.query('SELECT user_id FROM users WHERE username = $1', [username])
+  ).rows[0];
+
+  const { event_id } = (
+    await db.query('SELECT * FROM events WHERE title = $1', [eventAttending])
+  ).rows[0];
+
+  const userEventsAttending = (
+    await db.query(
+      `
+    INSERT INTO users_events
+      (user_id, event_id)
+    VALUES
+      ($1, $2)
+    RETURNING *
+    `,
+      [user_id, event_id]
+    )
+  ).rows[0];
+
+  console.log(userEventsAttending);
+
+  return userEventsAttending;
+};
