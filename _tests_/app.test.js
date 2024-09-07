@@ -5,9 +5,7 @@ const seed = require('../db/seed');
 
 afterAll(() => db.end());
 
-beforeEach(() => {
-  return seed();
-});
+beforeEach(() => seed());
 
 describe('GET /api/users', () => {
   test('status 200: should respond with an array of user objects with all their properties', () => {
@@ -126,7 +124,7 @@ describe('GET /api/events/:event_id/attendees', () => {
 });
 
 describe('POST /api/users', () => {
-  test('status 201: should respond with the user object that was created with the correct properties', () => {
+  test('status 201: should respond with the user object that was created with the correct properties including the default avatar_url value if one is not specified by the user', () => {
     return request(app)
       .post('/api/users')
       .send({
@@ -134,18 +132,18 @@ describe('POST /api/users', () => {
         email: 'newuser@email.com',
         password: 'NewUser123!',
         isOrganiser: false,
-        avatarUrl: 'https://i.ibb.co/db7BbZ6/default-dog.png',
+        avatarUrl: '',
       })
       .expect(201)
       .then(({ body }) => {
         const { newUser } = body;
         expect(newUser).toMatchObject({
           user_id: 4,
-          username: expect.any(String),
-          email: expect.any(String),
+          username: 'New User',
+          email: 'newuser@email.com',
           password: expect.any(String),
-          is_organiser: expect.any(Boolean),
-          avatar_url: expect.any(String),
+          is_organiser: false,
+          avatar_url: 'https://i.ibb.co/db7BbZ6/default-dog.png',
         });
       });
   });

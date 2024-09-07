@@ -44,6 +44,10 @@ module.exports.addUser = async (
   isOrganiser,
   avatarUrl
 ) => {
+  if (!avatarUrl) {
+    avatarUrl = 'https://i.ibb.co/db7BbZ6/default-dog.png';
+  }
+
   const addedUser = (
     await db.query(
       `
