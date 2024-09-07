@@ -16,8 +16,18 @@ module.exports.getUsers = async (req, res) => {
 
 module.exports.getUserById = async (req, res) => {
   const { user_id } = req.params;
-  const user = await fetchUserById(user_id);
-  res.status(200).send({ user });
+  try {
+    const user = await fetchUserById(user_id);
+    res.status(200).send({ user });
+  } catch (err) {
+    if (err.code === '22P02') {
+      res
+        .status(400)
+        .send({ msg: 'Bad request. Please provide a valid user_id' });
+    } else {
+      res.status(404).send({ msg: err.msg });
+    }
+  }
 };
 
 module.exports.getUserEventsAttending = async (req, res) => {

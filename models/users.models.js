@@ -1,17 +1,23 @@
 const db = require('../db/connection');
 
-module.exports.fetchUsers = () => {
-  return db.query('SELECT * FROM users').then(({ rows }) => {
-    return rows;
-  });
+module.exports.fetchUsers = async () => {
+  const users = (await db.query('SELECT * FROM users')).rows;
+  return users;
 };
 
-module.exports.fetchUserById = (id) => {
-  return db
-    .query('SELECT * FROM users WHERE user_id = $1', [id])
-    .then(({ rows }) => {
-      return rows[0];
+module.exports.fetchUserById = async (user_id) => {
+  // Check if user_id exists and reject if it doesn't
+
+  const user = (
+    await db.query('SELECT * FROM users WHERE user_id = $1', [user_id])
+  ).rows[0];
+
+  if (!user)
+    return Promise.reject({
+      msg: 'The user with the specified user_id was not found.',
     });
+
+  return user;
 };
 
 module.exports.fetchEventsAttending = async (user_id) => {
@@ -93,8 +99,6 @@ module.exports.postUserEventAttending = async (username, eventAttending) => {
       [user_id, event_id]
     )
   ).rows[0];
-
-  console.log(userEventsAttending);
 
   return userEventsAttending;
 };
