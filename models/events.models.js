@@ -5,9 +5,17 @@ module.exports.fetchEvents = async () => {
 };
 
 module.exports.fetchEventById = async (event_id) => {
-  return (
+  const event = (
     await db.query('SELECT * FROM events WHERE event_id = $1', [event_id])
   ).rows[0];
+
+  if (!event) {
+    return Promise.reject({
+      msg: 'The event with the specified event_id was not found.',
+    });
+  }
+
+  return event;
 };
 
 module.exports.fetchEventAttendees = async (event_id) => {
