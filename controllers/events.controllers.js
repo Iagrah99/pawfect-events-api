@@ -4,9 +4,13 @@ const {
   fetchEventAttendees,
 } = require('../models/events.models.js');
 
-module.exports.getEvents = async (req, res) => {
-  const events = await fetchEvents();
-  res.status(200).send({ events });
+module.exports.getEvents = async (req, res, next) => {
+  try {
+    const events = await fetchEvents();
+    res.status(200).send({ events });
+  } catch (err) {
+    next(err);
+  }
 };
 
 module.exports.getEventById = async (req, res, next) => {
@@ -19,8 +23,12 @@ module.exports.getEventById = async (req, res, next) => {
   }
 };
 
-module.exports.getEventAttendees = async (req, res) => {
+module.exports.getEventAttendees = async (req, res, next) => {
   const { event_id } = req.params;
-  const eventAttendees = await fetchEventAttendees(event_id);
-  res.status(200).send(eventAttendees);
+  try {
+    const eventAttendees = await fetchEventAttendees(event_id);
+    res.status(200).send(eventAttendees);
+  } catch (err) {
+    next(err);
+  }
 };

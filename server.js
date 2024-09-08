@@ -31,7 +31,7 @@ app.get('/api/events/:event_id', getEventById);
 app.get('/api/events/:event_id/attendees', getEventAttendees);
 
 app.use((err, req, res, next) => {
-  const type = req.originalUrl.split('/')[2].slice(0, -1);
+  const type = req.path.split('/')[2].slice(0, -1);
   if (err.code === '22P02') {
     res
       .status(400)
@@ -50,9 +50,9 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err);
+  console.error(err);
   res.status(500).send({
-    msg: 'I suck at coding, sorry!',
+    msg: "Uh oh, it looks like there's something wrong on our end. Our technicians are working to resolve the issue. Please try again later!",
   });
 });
 
