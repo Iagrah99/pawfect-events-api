@@ -238,3 +238,9 @@ describe('DELETE /api/events/:event_id', () => {
     return request(app).delete('/api/events/3').expect(204);
   });
 });
+
+describe('DELETE /api/users/:user_id', () => {
+  test('status 204: should remove the user with the specified user_id', () => {
+    return request(app).delete('/api/users/3').expect(204);
+  });
+});

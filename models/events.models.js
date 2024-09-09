@@ -42,6 +42,7 @@ module.exports.fetchEventAttendees = async (event_id) => {
 };
 
 module.exports.deleteEventById = async (event_id) => {
+  console.log(event_id);
   const deleteEventQuery = (
     await db.query('DELETE FROM events WHERE event_id = $1 RETURNING *', [
       event_id,

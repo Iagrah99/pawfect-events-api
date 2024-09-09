@@ -7,6 +7,7 @@ const {
   addUser,
   fetchUser,
   postUserEventAttending,
+  deleteUserById,
 } = require('../models/users.models.js');
 
 module.exports.getUsers = async (req, res, next) => {
@@ -96,6 +97,16 @@ module.exports.addUserEventsAttending = async (req, res, next) => {
     );
 
     res.status(201).send(eventsAttending);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.removeUserById = async (req, res, next) => {
+  const { user_id } = req.params;
+  try {
+    await deleteUserById(user_id);
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

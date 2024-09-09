@@ -102,3 +102,19 @@ module.exports.postUserEventAttending = async (username, eventAttending) => {
 
   return userEventsAttending;
 };
+
+module.exports.deleteUserById = async (user_id) => {
+  const deleteUserQuery = (
+    await db.query('DELETE FROM users WHERE user_id = $1 RETURNING *', [
+      user_id,
+    ])
+  ).rowCount;
+
+  console.log(deleteUserQuery);
+
+  if (!deleteUserQuery) {
+    return Promise.reject('The user with the specified user_id was not found');
+  }
+
+  return;
+};

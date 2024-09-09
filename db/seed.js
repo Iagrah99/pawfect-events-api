@@ -25,7 +25,7 @@ async function seed({ usersData, eventsData }) {
       (
         event_id SERIAL PRIMARY KEY,
         title VARCHAR NOT NULL,
-        organiser VARCHAR NOT NULL REFERENCES users(username),
+        organiser VARCHAR NOT NULL REFERENCES users(username) ON DELETE CASCADE,
         description text NOT NULL,
         start_date TIMESTAMP(0) DEFAULT NOW() NOT NULL,
         end_date TIMESTAMP(0) DEFAULT (NOW() + INTERVAL '1 day') NOT NULL,

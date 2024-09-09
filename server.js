@@ -6,6 +6,7 @@ const {
   registerUser,
   loginUser,
   addUserEventsAttending,
+  removeUserById,
 } = require('./controllers/users.controllers.js');
 const {
   getEvents,
@@ -24,6 +25,7 @@ app.get('/api/users/:user_id/attending', getUserEventsAttending);
 app.post('/api/users', registerUser);
 app.post('/api/users/login', loginUser);
 app.post('/api/users/:user_id/attending', addUserEventsAttending);
+app.delete('/api/users/:user_id', removeUserById);
 // post /api/users
 // JWT authentication?
 
@@ -54,7 +56,7 @@ app.use((err, req, res, next) => {
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).send({
-    msg: "Uh oh, it looks like there's something wrong on our end. Our technicians are working to resolve the issue. Please try again later!",
+    msg: "Uh oh, it looks like there's something wrong on our end.",
   });
 });
 
