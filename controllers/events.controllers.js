@@ -2,6 +2,7 @@ const {
   fetchEvents,
   fetchEventById,
   fetchEventAttendees,
+  deleteEventById,
 } = require('../models/events.models.js');
 
 module.exports.getEvents = async (req, res, next) => {
@@ -28,6 +29,16 @@ module.exports.getEventAttendees = async (req, res, next) => {
   try {
     const eventAttendees = await fetchEventAttendees(event_id);
     res.status(200).send(eventAttendees);
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.removeEventById = async (req, res, next) => {
+  const { event_id } = req.params;
+  try {
+    await deleteEventById(event_id);
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

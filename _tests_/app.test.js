@@ -232,3 +232,9 @@ describe('POST /api/users/:user_id/attending', () => {
       });
   });
 });
+
+describe('DELETE /api/events/:event_id', () => {
+  test('status 204: should remove the event with the specified event_id', () => {
+    return request(app).delete('/api/events/3').expect(204);
+  });
+});

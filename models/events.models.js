@@ -40,3 +40,19 @@ module.exports.fetchEventAttendees = async (event_id) => {
 
   return { attendees: attendeeUsernames };
 };
+
+module.exports.deleteEventById = async (event_id) => {
+  const deleteEventQuery = (
+    await db.query('DELETE FROM events WHERE event_id = $1 RETURNING *', [
+      event_id,
+    ])
+  ).rowCount;
+
+  if (!deleteEventQuery) {
+    return Promise.reject(
+      'The event with the specified event_id was not found'
+    );
+  }
+
+  return;
+};

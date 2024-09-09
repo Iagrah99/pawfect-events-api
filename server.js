@@ -11,6 +11,7 @@ const {
   getEvents,
   getEventById,
   getEventAttendees,
+  removeEventById,
 } = require('./controllers/events.controllers.js');
 
 const app = express();
@@ -29,6 +30,7 @@ app.post('/api/users/:user_id/attending', addUserEventsAttending);
 app.get('/api/events', getEvents);
 app.get('/api/events/:event_id', getEventById);
 app.get('/api/events/:event_id/attendees', getEventAttendees);
+app.delete('/api/events/:event_id', removeEventById);
 
 app.use((err, req, res, next) => {
   const type = req.path.split('/')[2].slice(0, -1);
