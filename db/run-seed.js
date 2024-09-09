@@ -1,6 +1,10 @@
+const devData = require('./data/development-data/index.js');
 const seed = require('./seed');
 const connection = require('./connection');
 
-seed().then(() => {
+const runSeed = async () => {
+  await seed(devData);
   connection.end();
-});
+};
+
+runSeed();

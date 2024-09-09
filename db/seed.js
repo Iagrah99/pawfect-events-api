@@ -1,10 +1,8 @@
 const connection = require('./connection');
-const usersData = require('./test-data/users.json');
-const eventsData = require('./test-data/events.json');
 const format = require('pg-format');
 const bcrypt = require('bcrypt');
 
-async function seed() {
+async function seed({ usersData, eventsData }) {
   await connection.query('DROP TABLE IF EXISTS users_events');
   await connection.query('DROP TABLE IF EXISTS events');
   await connection.query('DROP TABLE IF EXISTS users');

@@ -1,11 +1,12 @@
 const request = require('supertest');
 const app = require('../server');
 const db = require('../db/connection');
+const data = require('../db/data/test-data/index');
 const seed = require('../db/seed');
 
 afterAll(() => db.end());
 
-beforeEach(() => seed());
+beforeEach(() => seed(data));
 
 describe('GET /api/users', () => {
   test('status 200: should respond with an array of user objects with all their properties', () => {
