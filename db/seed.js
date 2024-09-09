@@ -1,6 +1,6 @@
 const connection = require('./connection');
-const usersData = require('./data/users.json');
-const eventsData = require('./data/events.json');
+const usersData = require('./test-data/users.json');
+const eventsData = require('./test-data/events.json');
 const format = require('pg-format');
 const bcrypt = require('bcrypt');
 
