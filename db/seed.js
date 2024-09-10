@@ -1,7 +1,6 @@
 const connection = require('./connection');
 const format = require('pg-format');
 const bcrypt = require('bcrypt');
-// const { convertTimestampToDate } = require('./utils.js');
 
 async function seed({ usersData, eventsData }) {
   await connection.query('DROP TABLE IF EXISTS users_events');
@@ -26,7 +25,7 @@ async function seed({ usersData, eventsData }) {
       (
         event_id SERIAL PRIMARY KEY,
         title VARCHAR NOT NULL,
-        organiser VARCHAR NOT NULL REFERENCES users(username) ON DELETE CASCADE,
+        organiser VARCHAR NOT NULL REFERENCES users(username) ON DELETE CASCADE ON UPDATE CASCADE,
         description text NOT NULL,
         start_date TIMESTAMPTZ(0) DEFAULT NOW() NOT NULL,
         end_date TIMESTAMPTZ(0) DEFAULT (NOW() + INTERVAL '1 day') NOT NULL,

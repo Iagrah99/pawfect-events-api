@@ -246,7 +246,7 @@ describe('DELETE /api/users/:user_id', () => {
 });
 
 describe('PATCH /api/events/:event_id', () => {
-  test('status 200: should respond with the updated event title with the specified event_id, leaving the other properties unchanged', () => {
+  test('status 200: should respond with the updated event associated with the specified event_id, leaving the other unedited properties unchanged', () => {
     return request(app)
       .patch('/api/events/1')
       .send({
@@ -271,6 +271,29 @@ describe('PATCH /api/events/:event_id', () => {
           price_in_pence: 2250,
           location: 'Liverpool',
           image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
+        });
+      });
+  });
+});
+
+describe('PATCH /api/users/:user_id', () => {
+  test('status 200: should respond with the updated user associated with the specified user_id, leaving the other unedited properties unchanged', () => {
+    return request(app)
+      .patch('/api/users/1')
+      .send({
+        username: 'BarkBuddy',
+        password: 'Bark4Joy!',
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { user } = body;
+        expect(user).toMatchObject({
+          user_id: 1,
+          username: 'BarkBuddy',
+          email: 'pawsandplay@example.com',
+          password: expect.any(String),
+          is_organiser: true,
+          avatar_url: 'https://i.ibb.co/db7BbZ6/default-dog.png',
         });
       });
   });

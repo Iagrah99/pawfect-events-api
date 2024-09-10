@@ -72,7 +72,6 @@ module.exports.updateEventById = async (req, res, next) => {
       image
     );
 
-    console.log(updatedEvent);
     res.status(200).send({ event: updatedEvent });
   } catch (err) {
     next(err);

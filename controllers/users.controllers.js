@@ -8,6 +8,7 @@ const {
   fetchUser,
   postUserEventAttending,
   deleteUserById,
+  patchUserById,
 } = require('../models/users.models.js');
 
 module.exports.getUsers = async (req, res, next) => {
@@ -107,6 +108,23 @@ module.exports.removeUserById = async (req, res, next) => {
   try {
     await deleteUserById(user_id);
     res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.updateUserById = async (req, res, next) => {
+  const { user_id } = req.params;
+  const { username, password } = req.body;
+  try {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const updatedUser = await patchUserById(user_id, username, hashedPassword);
+    if (await bcrypt.compare(password, updatedUser.password)) {
+      res.status(200).send({ user: updatedUser });
+    } else {
+      console.log("Passwords don't match!");
+    }
   } catch (err) {
     next(err);
   }
