@@ -3,6 +3,7 @@ const {
   fetchEventById,
   fetchEventAttendees,
   deleteEventById,
+  updateEventInfoById,
 } = require('../models/events.models.js');
 
 module.exports.getEvents = async (req, res, next) => {
@@ -39,6 +40,40 @@ module.exports.removeEventById = async (req, res, next) => {
   try {
     await deleteEventById(event_id);
     res.status(204).send();
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.updateEventById = async (req, res, next) => {
+  const { event_id } = req.params;
+  const {
+    title,
+    organiser,
+    start_date,
+    end_date,
+    description,
+    event_type,
+    price_in_pence,
+    location,
+    image,
+  } = req.body;
+  try {
+    const updatedEvent = await updateEventInfoById(
+      event_id,
+      title,
+      organiser,
+      start_date,
+      end_date,
+      description,
+      event_type,
+      price_in_pence,
+      location,
+      image
+    );
+
+    console.log(updatedEvent);
+    res.status(200).send({ event: updatedEvent });
   } catch (err) {
     next(err);
   }

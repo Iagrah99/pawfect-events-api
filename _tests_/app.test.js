@@ -244,3 +244,34 @@ describe('DELETE /api/users/:user_id', () => {
     return request(app).delete('/api/users/3').expect(204);
   });
 });
+
+describe('PATCH /api/events/:event_id', () => {
+  test('status 200: should respond with the updated event title with the specified event_id, leaving the other properties unchanged', () => {
+    return request(app)
+      .patch('/api/events/1')
+      .send({
+        title: 'Barks & Rec',
+        start_date: '2024-09-15 10:00:00Z',
+        end_date: '2024-09-16 22:00:00Z',
+        description: 'A day full of wagging tails!.',
+        price_in_pence: 2250,
+        location: 'Liverpool',
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { event } = body;
+        expect(event).toMatchObject({
+          event_id: 1,
+          title: 'Barks & Rec',
+          organiser: 'PawsAndPlay',
+          start_date: '2024-09-15T10:00:00.000Z',
+          end_date: '2024-09-16T22:00:00.000Z',
+          description: 'A day full of wagging tails!.',
+          event_type: 'Dog Show',
+          price_in_pence: 2250,
+          location: 'Liverpool',
+          image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
+        });
+      });
+  });
+});

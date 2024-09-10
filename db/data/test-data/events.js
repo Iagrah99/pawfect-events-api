@@ -2,6 +2,8 @@ module.exports = [
   {
     title: 'Paws in the Park',
     organiser: 'PawsAndPlay',
+    start_date: '2024-10-15 10:00:00',
+    end_date: '2024-10-16 22:00:00',
     description: 'A fun-filled day in the park.',
     event_type: 'Dog Show',
     priceInPence: 1500,
@@ -12,6 +14,8 @@ module.exports = [
   {
     title: 'Doggy Dash Derby',
     organiser: 'PawsAndPlay',
+    start_date: '2024-10-6 06:00:00',
+    end_date: '2024-10-8 18:00:00',
     description: 'Join us for an exciting dog race.',
     event_type: 'Dog Show',
     priceInPence: 2000,
@@ -22,6 +26,8 @@ module.exports = [
   {
     title: 'Fetch Fest',
     organiser: 'FetchMaster',
+    start_date: '2024-09-28 7:00:00',
+    end_date: '2024-09-29 17:00:00',
     description: 'A festival dedicated to all things fetch!',
     event_type: 'Dog Training',
     priceInPence: 1200,

@@ -42,7 +42,6 @@ module.exports.fetchEventAttendees = async (event_id) => {
 };
 
 module.exports.deleteEventById = async (event_id) => {
-  console.log(event_id);
   const deleteEventQuery = (
     await db.query('DELETE FROM events WHERE event_id = $1 RETURNING *', [
       event_id,
@@ -56,4 +55,63 @@ module.exports.deleteEventById = async (event_id) => {
   }
 
   return;
+};
+
+const format = require('pg-format');
+
+module.exports.updateEventInfoById = async (
+  event_id,
+  title,
+  organiser,
+  start_date,
+  end_date,
+  description,
+  event_type,
+  price_in_pence,
+  location,
+  image
+) => {
+  // Create a mapping of column names to their respective values
+  const columns = {
+    title,
+    organiser,
+    start_date,
+    end_date,
+    description,
+    event_type,
+    price_in_pence,
+    location,
+    image,
+  };
+
+  // Filter out undefined values
+  const setClause = [];
+
+  for (const [column, value] of Object.entries(columns)) {
+    if (value !== undefined) {
+      setClause.push(format('%I = %L', column, value)); // %I for column name, %L for literal value
+    }
+  }
+
+  // If there are no valid fields to update, return early
+  if (setClause.length === 0) {
+    throw new Error('No valid fields to update');
+  }
+
+  // Add event_id as a last condition for the WHERE clause
+  const query = format(
+    `
+    UPDATE events
+    SET %s
+    WHERE event_id = %L
+    RETURNING *;
+  `,
+    setClause.join(', '),
+    event_id
+  );
+
+  // Execute the query
+  const updateEventQuery = (await db.query(query)).rows[0];
+
+  return updateEventQuery;
 };
