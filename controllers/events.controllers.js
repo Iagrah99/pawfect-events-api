@@ -7,8 +7,9 @@ const {
 } = require('../models/events.models.js');
 
 module.exports.getEvents = async (req, res, next) => {
+  const { sort_by, order_by } = req.query;
   try {
-    const events = await fetchEvents();
+    const events = await fetchEvents(sort_by, order_by);
     res.status(200).send({ events });
   } catch (err) {
     next(err);

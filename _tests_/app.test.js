@@ -106,13 +106,42 @@ describe('GET /api/events', () => {
         });
       });
   });
-  test('status 200: by default, the events are sorted by their title', () => {
+  test('status 200: by default, the events are sorted by their title in ascending order', () => {
     return request(app)
       .get('/api/events')
       .expect(200)
       .then(({ body }) => {
         const { events } = body;
         expect(events).toBeSortedBy('title');
+      });
+  });
+
+  test('status 200: should sort events by specified sort_by query', () => {
+    return request(app)
+      .get('/api/events?sort_by=price_in_pence')
+      .then(({ body }) => {
+        const { events } = body;
+        expect(events).toBeSortedBy('price_in_pence');
+      });
+  });
+
+  test('status 400: should respond with a bad request error when provided an invalid sort_by query', () => {
+    return request(app)
+      .get('/api/events?sort_by=nonsense')
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. Please provide a valid sort_by query.');
+      });
+  });
+
+  test('status 400: should respond with a bad request error when provided an invalid order_by query', () => {
+    return request(app)
+      .get('/api/events?order_by=nothing')
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. Please provide a valid order_by query.');
       });
   });
 });

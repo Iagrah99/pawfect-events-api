@@ -1,8 +1,34 @@
 const db = require('../db/connection');
 const format = require('pg-format');
 
-module.exports.fetchEvents = async () => {
-  return (await db.query('SELECT * FROM events ORDER BY title')).rows;
+module.exports.fetchEvents = async (sort_by = 'title', order_by = 'ASC') => {
+  const validSortByQueries = [
+    'title',
+    'price_in_pence',
+    'organiser',
+    'start_date',
+    'end_date',
+  ];
+
+  const validOrderByQueries = ['ASC', 'DESC'];
+
+  if (!validSortByQueries.includes(sort_by)) {
+    return Promise.reject({
+      status: 400,
+      msg: 'Bad request. Please provide a valid sort_by query.',
+    });
+  }
+
+  if (!validOrderByQueries.includes(order_by)) {
+    return Promise.reject({
+      status: 400,
+      msg: 'Bad request. Please provide a valid order_by query.',
+    });
+  }
+
+  return (
+    await db.query(`SELECT * FROM events ORDER BY ${sort_by} ${order_by}`)
+  ).rows;
 };
 
 module.exports.fetchEventById = async (event_id) => {
