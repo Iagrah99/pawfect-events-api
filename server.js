@@ -67,7 +67,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err);
   res.status(500).send({
     msg: "Uh oh, it looks like there's something wrong on our end.",
   });

@@ -202,6 +202,28 @@ describe('GET /api/events/:event_id/attendees', () => {
         });
       });
   });
+
+  test('status 404: should respond with a "not found" error if the specified event_id is valid but non-existent', () => {
+    return request(app)
+      .get('/api/events/100/attendees')
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe(
+          'The event with the specified event_id was not found.'
+        );
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error if the specified event_id is invalid', () => {
+    return request(app)
+      .get('/api/events/hello/attendees')
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. Please provide a valid event_id');
+      });
+  });
 });
 
 describe('POST /api/users', () => {

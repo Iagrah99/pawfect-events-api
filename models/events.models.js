@@ -46,6 +46,18 @@ module.exports.fetchEventById = async (event_id) => {
 };
 
 module.exports.fetchEventAttendees = async (event_id) => {
+  const checkEventIdValid = (
+    await db.query(`SELECT event_id FROM events WHERE event_id = $1`, [
+      event_id,
+    ])
+  ).rowCount;
+
+  if (!checkEventIdValid) {
+    return Promise.reject({
+      msg: 'The event with the specified event_id was not found.',
+    });
+  }
+
   const eventAttendees = (
     await db.query('SELECT user_id FROM users_events WHERE event_id = $1', [
       event_id,
