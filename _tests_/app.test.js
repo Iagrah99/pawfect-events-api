@@ -250,6 +250,91 @@ describe('POST /api/users', () => {
         });
       });
   });
+
+  test('status 400: should respond with a "bad request" error if a user with the specified email already exists', () => {
+    return request(app)
+      .post('/api/users')
+      .send({
+        username: 'PawsAndPray',
+        email: 'pawsandplay@example.com',
+        password: 'BarkLover123!',
+        isOrganiser: true,
+        avatarUrl: '',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('A user with that email already exists');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error if a user with the specified username already exists', () => {
+    return request(app)
+      .post('/api/users')
+      .send({
+        username: 'PawsAndPlay',
+        email: 'pawsandpray@example.com',
+        password: 'BarkLover123!',
+        isOrganiser: true,
+        avatarUrl: '',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('A user with that username already exists');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error if no email is provided', () => {
+    return request(app)
+      .post('/api/users')
+      .send({
+        username: 'New User',
+        email: '',
+        password: 'NewUser123!',
+        isOrganiser: false,
+        avatarUrl: '',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Please provide an email');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error if no username is provided', () => {
+    return request(app)
+      .post('/api/users')
+      .send({
+        username: '',
+        email: 'newuser@email.com',
+        password: 'NewUser123',
+        isOrganiser: false,
+        avatarUrl: '',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Please provide a username');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error if no password is provided', () => {
+    return request(app)
+      .post('/api/users')
+      .send({
+        username: 'New User',
+        email: 'newuser@email.com',
+        password: '',
+        isOrganiser: false,
+        avatarUrl: '',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Please provide a password');
+      });
+  });
 });
 
 describe('POST /api/users/login', () => {

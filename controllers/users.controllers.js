@@ -43,21 +43,11 @@ module.exports.getUserEventsAttending = async (req, res, next) => {
 module.exports.registerUser = async (req, res, next) => {
   const { username, email, password, isOrganiser, avatarUrl } = req.body;
 
-  // Hash password
-
-  if (!password) {
-    res.status(400);
-    throw new Error('Please provide a password.');
-  }
-
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-
     const newUser = await addUser(
       username,
       email,
-      hashedPassword,
+      password,
       isOrganiser,
       avatarUrl
     );

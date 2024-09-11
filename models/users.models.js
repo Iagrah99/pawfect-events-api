@@ -1,4 +1,5 @@
 const db = require('../db/connection');
+const bcrypt = require('bcrypt');
 
 module.exports.fetchUsers = async () => {
   const users = (await db.query('SELECT * FROM users')).rows;
@@ -54,6 +55,43 @@ module.exports.addUser = async (
     avatarUrl = 'https://i.ibb.co/db7BbZ6/default-dog.png';
   }
 
+  if (!email) {
+    return Promise.reject({ status: 400, msg: 'Please provide an email' });
+  }
+
+  if (!username) {
+    return Promise.reject({ status: 400, msg: 'Please provide a username' });
+  }
+
+  if (!password) {
+    return Promise.reject({ status: 400, msg: 'Please provide a password' });
+  }
+
+  const checkUserEmailExists = (
+    await db.query('SELECT email FROM users WHERE email = $1', [email])
+  ).rowCount;
+
+  const checkUsernameExists = (
+    await db.query('SELECT username FROM users WHERE username = $1', [username])
+  ).rowCount;
+
+  if (checkUserEmailExists) {
+    return Promise.reject({
+      status: 400,
+      msg: 'A user with that email already exists',
+    });
+  }
+
+  if (checkUsernameExists) {
+    return Promise.reject({
+      status: 400,
+      msg: 'A user with that username already exists',
+    });
+  }
+
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
   const addedUser = (
     await db.query(
       `
@@ -63,7 +101,7 @@ module.exports.addUser = async (
         ($1, $2, $3, $4, $5)
       RETURNING *;
     `,
-      [username, email, password, isOrganiser, avatarUrl]
+      [username, email, hashedPassword, isOrganiser, avatarUrl]
     )
   ).rows[0];
 
