@@ -1,7 +1,8 @@
 const db = require('../db/connection');
+const format = require('pg-format');
 
 module.exports.fetchEvents = async () => {
-  return (await db.query('SELECT * FROM events')).rows;
+  return (await db.query('SELECT * FROM events ORDER BY title')).rows;
 };
 
 module.exports.fetchEventById = async (event_id) => {
@@ -56,8 +57,6 @@ module.exports.deleteEventById = async (event_id) => {
 
   return;
 };
-
-const format = require('pg-format');
 
 module.exports.updateEventInfoById = async (
   event_id,

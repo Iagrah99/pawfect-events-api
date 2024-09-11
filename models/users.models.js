@@ -127,13 +127,7 @@ module.exports.patchUserById = async (user_id, username, password) => {
     )
     .filter((item) => item !== null);
 
-  if (!user_id) {
-    console.error('No user_id');
-  }
-
   const queryParams = definedParams.map((param) => Object.values(param)[0]);
-
-  console.log(queryParams);
 
   const updatedUser = (
     await db.query(

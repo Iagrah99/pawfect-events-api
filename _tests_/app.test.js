@@ -106,10 +106,19 @@ describe('GET /api/events', () => {
         });
       });
   });
+  test('status 200: by default, the events are sorted by their title', () => {
+    return request(app)
+      .get('/api/events')
+      .expect(200)
+      .then(({ body }) => {
+        const { events } = body;
+        expect(events).toBeSortedBy('title');
+      });
+  });
 });
 
 describe('GET /api/events/:event_id', () => {
-  test('status 200: should respond with the event object associated with the specified event_id ', () => {
+  test('status 200: should respond with the event object associated with the specified event_id', () => {
     return request(app)
       .get('/api/events/1')
       .expect(200)
