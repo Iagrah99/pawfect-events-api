@@ -377,6 +377,36 @@ describe('POST /api/users/login', () => {
         });
       });
   });
+
+  test('status 400: should respond with a "bad request" error when the provided email is not associated with a registered user account', () => {
+    return request(app)
+      .post('/api/users/login')
+      .send({
+        email: 'ballfetcher@example.com',
+        password: 'BallChaser2024!',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe(
+          'There is no registered user account that is associated with that email'
+        );
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error when the provided password is incorrect', () => {
+    return request(app)
+      .post('/api/users/login')
+      .send({
+        email: 'fetchmaster@example.com',
+        password: 'BallChaser2023!',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Incorrect password. Please try again!');
+      });
+  });
 });
 
 describe('POST /api/users/:user_id/attending', () => {

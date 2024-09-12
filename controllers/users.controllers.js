@@ -61,18 +61,8 @@ module.exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    const user = await fetchUser(email);
-
-    if (user && (await bcrypt.compare(password, user.password))) {
-      const userDetails = {
-        user_id: user.user_id,
-        username: user.username,
-        email: user.email,
-        is_organiser: user.is_organiser,
-        avatar_url: user.avatar_url,
-      };
-      res.status(201).send({ user: userDetails });
-    }
+    const user = await fetchUser(email, password);
+    res.status(201).send({ user });
   } catch (err) {
     next(err);
   }
