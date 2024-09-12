@@ -88,9 +88,10 @@ module.exports.deleteEventById = async (event_id) => {
   ).rowCount;
 
   if (!deleteEventQuery) {
-    return Promise.reject(
-      'The event with the specified event_id was not found'
-    );
+    return Promise.reject({
+      status: 404,
+      msg: 'The event with the specified event_id was not found',
+    });
   }
 
   return;
