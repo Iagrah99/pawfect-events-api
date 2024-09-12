@@ -2,7 +2,11 @@ const db = require('../db/connection');
 const bcrypt = require('bcrypt');
 
 module.exports.fetchUsers = async () => {
-  const users = (await db.query('SELECT * FROM users')).rows;
+  const users = (
+    await db.query(
+      'SELECT user_id, email, username, is_organiser, avatar_url FROM users'
+    )
+  ).rows;
   return users;
 };
 

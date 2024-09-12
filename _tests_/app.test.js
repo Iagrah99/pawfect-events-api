@@ -21,7 +21,6 @@ describe('GET /api/users', () => {
             user_id: expect.any(Number),
             username: expect.any(String),
             email: expect.any(String),
-            password: expect.any(String),
             is_organiser: expect.any(Boolean),
             avatar_url: expect.any(String),
           });
