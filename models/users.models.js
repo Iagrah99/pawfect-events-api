@@ -15,13 +15,23 @@ module.exports.fetchUserById = async (user_id) => {
 
   if (!user)
     return Promise.reject({
-      msg: 'The user with the specified user_id was not found.',
+      msg: 'The user with the specified user_id was not found',
     });
 
   return user;
 };
 
 module.exports.fetchEventsAttending = async (user_id) => {
+  const checkUserExists = (
+    await db.query('SELECT user_id FROM users WHERE user_id = $1', [user_id])
+  ).rowCount;
+
+  if (!checkUserExists) {
+    return Promise.reject({
+      msg: 'The user with the specified user_id was not found',
+    });
+  }
+
   const userEventsAttending = (
     await db.query('SELECT event_id FROM users_events WHERE user_id = $1', [
       user_id,

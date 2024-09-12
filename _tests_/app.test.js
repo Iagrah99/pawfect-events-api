@@ -54,7 +54,7 @@ describe('GET /api/users/:user_id', () => {
       .expect(404)
       .then(({ body }) => {
         const { msg } = body;
-        expect(msg).toBe('The user with the specified user_id was not found.');
+        expect(msg).toBe('The user with the specified user_id was not found');
       });
   });
 
@@ -78,6 +78,26 @@ describe('GET /api/users/:user_id/attending', () => {
         expect(body).toMatchObject({
           eventsAttending: ['Doggy Dash Derby', 'Fetch Fest'],
         });
+      });
+  });
+
+  test('status 404: should respond with a "not found" error when given a valid but non-existent user_id ', () => {
+    return request(app)
+      .get('/api/users/100/attending')
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('The user with the specified user_id was not found');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error when given a valid but non-existent user_id', () => {
+    return request(app)
+      .get('/api/users/user')
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. Please provide a valid user_id');
       });
   });
 });
