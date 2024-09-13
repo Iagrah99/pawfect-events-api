@@ -440,7 +440,7 @@ describe('POST /api/users/:user_id/attending', () => {
       });
   });
 
-  test('status 400: should respond with a bad request error if the event the user is already attending the specified event ', () => {
+  test('status 400: should respond with a bad request error if the event the user is already attending the specified event', () => {
     return request(app)
       .post('/api/users/1/attending')
       .send({
@@ -484,6 +484,26 @@ describe('DELETE /api/events/:event_id', () => {
 describe('DELETE /api/users/:user_id', () => {
   test('status 204: should remove the user with the specified user_id', () => {
     return request(app).delete('/api/users/3').expect(204);
+  });
+
+  test('status 404: should return with a "not found" error when given a valid but non-existent user_id ', () => {
+    return request(app)
+      .delete('/api/users/100')
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('The user with the specified user_id was not found');
+      });
+  });
+
+  test('status 400: should return with a "bad request" error when given an invalid user_id ', () => {
+    return request(app)
+      .delete('/api/users/user1')
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. Please provide a valid user_id');
+      });
   });
 });
 

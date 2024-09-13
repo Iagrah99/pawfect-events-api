@@ -221,7 +221,9 @@ module.exports.deleteUserById = async (user_id) => {
   ).rowCount;
 
   if (!deleteUserQuery) {
-    return Promise.reject('The user with the specified user_id was not found');
+    return Promise.reject({
+      msg: 'The user with the specified user_id was not found',
+    });
   }
 
   return;
