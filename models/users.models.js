@@ -11,8 +11,6 @@ module.exports.fetchUsers = async () => {
 };
 
 module.exports.fetchUserById = async (user_id) => {
-  // Check if user_id exists and reject if it doesn't
-
   const user = (
     await db.query('SELECT * FROM users WHERE user_id = $1', [user_id])
   ).rows[0];
@@ -155,15 +153,51 @@ module.exports.fetchUser = async (user_email, password) => {
 };
 
 module.exports.postUserEventAttending = async (username, eventAttending) => {
-  const { user_id } = (
+  const user = (
     await db.query('SELECT user_id FROM users WHERE username = $1', [username])
   ).rows[0];
 
-  const { event_id } = (
+  const { user_id } = user;
+
+  const event = (
     await db.query('SELECT * FROM events WHERE title = $1', [eventAttending])
   ).rows[0];
 
+  if (!event) {
+    return Promise.reject({
+      status: 400,
+      msg: 'Please specify an event that exists',
+    });
+  }
+
+  const { event_id } = event;
+
   const userEventsAttending = (
+    await db.query('SELECT event_id FROM users_events WHERE user_id = $1', [
+      user_id,
+    ])
+  ).rows;
+
+  const eventTitles = await Promise.all(
+    userEventsAttending.map(async (event) => {
+      const event_id = event.event_id;
+      const eventTitle = await db
+        .query('SELECT * FROM events WHERE event_id = $1', [event_id])
+        .then(({ rows }) => {
+          return rows[0].title;
+        });
+      return eventTitle;
+    })
+  );
+
+  if (eventTitles.includes(eventAttending)) {
+    return Promise.reject({
+      status: 400,
+      msg: 'You have already signed up for this event',
+    });
+  }
+
+  const addUserEventsAttending = (
     await db.query(
       `
     INSERT INTO users_events
@@ -176,7 +210,7 @@ module.exports.postUserEventAttending = async (username, eventAttending) => {
     )
   ).rows[0];
 
-  return userEventsAttending;
+  return addUserEventsAttending;
 };
 
 module.exports.deleteUserById = async (user_id) => {

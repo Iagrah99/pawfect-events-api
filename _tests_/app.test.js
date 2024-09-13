@@ -425,6 +425,34 @@ describe('POST /api/users/:user_id/attending', () => {
         });
       });
   });
+
+  test('status 400: should respond with a bad request error if the event the user is attending does not exist ', () => {
+    return request(app)
+      .post('/api/users/1/attending')
+      .send({
+        username: 'PawsAndPlay',
+        eventAttending: 'Trails & Tails',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Please specify an event that exists');
+      });
+  });
+
+  test('status 400: should respond with a bad request error if the event the user is already attending the specified event ', () => {
+    return request(app)
+      .post('/api/users/1/attending')
+      .send({
+        username: 'PawsAndPlay',
+        eventAttending: 'Paws in the Park',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('You have already signed up for this event');
+      });
+  });
 });
 
 describe('DELETE /api/events/:event_id', () => {

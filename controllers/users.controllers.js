@@ -14,7 +14,6 @@ const {
 module.exports.getUsers = async (req, res, next) => {
   try {
     const users = await fetchUsers();
-    console.log(users);
     res.status(200).send({ users });
   } catch (err) {
     next(err);
@@ -72,11 +71,9 @@ module.exports.loginUser = async (req, res, next) => {
 module.exports.addUserEventsAttending = async (req, res, next) => {
   const { username, eventAttending } = req.body;
   try {
-    const eventsAttending = await fetchEventsAttending(
-      (
-        await postUserEventAttending(username, eventAttending)
-      ).user_id
-    );
+    const userId = (await postUserEventAttending(username, eventAttending))
+      .user_id;
+    const eventsAttending = await fetchEventsAttending(userId);
 
     res.status(201).send(eventsAttending);
   } catch (err) {
