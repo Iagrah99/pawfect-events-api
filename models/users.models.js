@@ -233,6 +233,16 @@ module.exports.patchUserById = async (user_id, username, password) => {
   const columns = [user_id, username, password];
   const keys = ['user_id', 'username', 'password'];
 
+  const checkUserIdExists = (
+    await db.query('SELECT user_id FROM users WHERE user_id = $1', [user_id])
+  ).rowCount;
+
+  if (!checkUserIdExists) {
+    return Promise.reject({
+      msg: 'The user with the specified user_id was not found',
+    });
+  }
+
   const definedParams = columns
     .map((value, index) =>
       value !== undefined ? { [keys[index]]: value } : null

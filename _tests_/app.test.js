@@ -595,4 +595,32 @@ describe('PATCH /api/users/:user_id', () => {
         });
       });
   });
+
+  test('status 404: should return with a "not found" error when given a valid but non-existent', () => {
+    return request(app)
+      .patch('/api/users/100')
+      .send({
+        username: 'BarkBuddy',
+        password: 'Bark4Joy!',
+      })
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('The user with the specified user_id was not found');
+      });
+  });
+
+  test('status 400: should return with a "bad request" error when given an invalid user_id', () => {
+    return request(app)
+      .patch('/api/users/user1')
+      .send({
+        username: 'BarkBuddy',
+        password: 'Bark4Joy!',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. Please provide a valid user_id');
+      });
+  });
 });
