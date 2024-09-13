@@ -177,7 +177,30 @@ module.exports.addNewEvent = async (
   location,
   image
 ) => {
-  // Check if the username stored in organiser is actually an organiser.
+  if (
+    !title ||
+    !organiser ||
+    !description ||
+    !start_date ||
+    !end_date ||
+    !event_type ||
+    !price_in_pence ||
+    !location ||
+    !image
+  ) {
+    return Promise.reject({
+      status: 400,
+      msg: 'Please fill out the required fields',
+    });
+  }
+
+  const checkEventExists = (
+    await db.query('SELECT title FROM events WHERE title = $1', [title])
+  ).rowCount;
+
+  if (checkEventExists) {
+    return Promise.reject({ status: 400, msg: 'This event already exists' });
+  }
 
   const checkIsOrganiser = (
     await db.query('SELECT is_organiser FROM users WHERE username = $1', [
@@ -188,7 +211,7 @@ module.exports.addNewEvent = async (
   if (!checkIsOrganiser) {
     return Promise.reject({
       status: 400,
-      msg: 'You do not have sufficent privileges',
+      msg: 'You lack sufficent privileges',
     });
   }
 

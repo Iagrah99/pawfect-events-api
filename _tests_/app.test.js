@@ -626,7 +626,7 @@ describe('PATCH /api/users/:user_id', () => {
 });
 
 describe('POST /api/events', () => {
-  test.only('status 201: should respond with the event object that was created with the required event details provided', () => {
+  test('status 201: should respond with the event object that was created with the required event details provided', () => {
     return request(app)
       .post('/api/events')
       .send({
@@ -634,7 +634,7 @@ describe('POST /api/events', () => {
         organiser: 'PawsAndPlay',
         description: "We've got tales of many tails on trails",
         start_date: '2024-10-12 09:00:00.00Z',
-        end_date: '2024-10-13 17:00:00.000Z',
+        end_date: '2024-10-13 17:00:00.00Z',
         event_type: 'Dog Walking',
         price_in_pence: 700,
         location: 'Birmingham',
@@ -642,9 +642,82 @@ describe('POST /api/events', () => {
       })
       .expect(201)
       .then(({ body }) => {
-        // post event if user is an organiser
-        // If not, state they have insufficient privileges.
         const { event } = body;
+        expect(event).toMatchObject({
+          event_id: 4,
+          title: 'Tails and Trails',
+          organiser: 'PawsAndPlay',
+          description: "We've got tales of many tails on trails",
+          start_date: '2024-10-12T09:00:00.000Z',
+          end_date: '2024-10-13T17:00:00.000Z',
+          event_type: 'Dog Walking',
+          price_in_pence: 700,
+          location: 'Birmingham',
+          image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
+        });
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error if the user lacks privileges to post events', () => {
+    return request(app)
+      .post('/api/events')
+      .send({
+        title: 'Tails and Trails',
+        organiser: 'WoofWanderer',
+        description: "We've got tales of many tails on trails",
+        start_date: '2024-10-12 09:00:00.00Z',
+        end_date: '2024-10-13 17:00:00.00Z',
+        event_type: 'Dog Walking',
+        price_in_pence: 700,
+        location: 'Birmingham',
+        image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('You lack sufficent privileges');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error if there is missing required event information ', () => {
+    return request(app)
+      .post('/api/events')
+      .send({
+        title: '',
+        organiser: 'PawsAndPlay',
+        description: '',
+        start_date: '',
+        end_date: '',
+        event_type: '',
+        price_in_pence: 0,
+        location: '',
+        image: '',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Please fill out the required fields');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error if the event already exists', () => {
+    return request(app)
+      .post('/api/events')
+      .send({
+        title: 'Doggy Dash Derby',
+        organiser: 'PawsAndPlay',
+        description: 'Join us for an exciting dog race.',
+        start_date: '2024-09-13T17:15:50.000Z',
+        end_date: '2024-09-14T17:15:50.000Z',
+        event_type: 'Dog Show',
+        price_in_pence: 2000,
+        location: 'Manchester',
+        image: 'https://i.ibb.co/R0fr3k2/S1-T8-Ee9-Nm-1280.jpg',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('This event already exists');
       });
   });
 });
