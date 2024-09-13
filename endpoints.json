@@ -1,0 +1,64 @@
+{
+  "GET /api": {
+    "description": "responds with a json representation of all the available endpoints of the api"
+  },
+  "GET /events": {
+    "description": "responds with an array of all of the events",
+    "queries": {
+      "sort_by": [
+        "title",
+        "price_in_pence",
+        "organiser",
+        "start_date",
+        "end_date"
+      ]
+    },
+    "exampleResponse": {
+      "events": [
+        {
+          "title": "Paws in the Park",
+          "organiser": "PawsAndPlay",
+          "start_date": "2024-10-15 10:00:00",
+          "end_date": "2024-10-16 22:00:00",
+          "description": "A fun-filled day in the park.",
+          "event_type": "Dog Show",
+          "priceInPence": 1500,
+          "location": "London",
+          "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg",
+          "attendees": [
+            "PawsAndPlay",
+            "FetchMaster"
+          ]
+        }
+      ]
+    }
+  },
+  "GET /api/events/:event_id": {
+    "description": "responds with the event object associated with the specified event_id",
+    "queries": {},
+    "exampleResponse": {
+      "event": {
+        "event_id": 1,
+        "title": "Paws in the Park",
+        "organiser": "PawsAndPlay",
+        "description": "A fun-filled day in the park.",
+        "start_date": "2024-09-12T13:54:54.000Z",
+        "end_date": "2024-09-13T13:54:54.000Z",
+        "event_type": "Dog Show",
+        "price_in_pence": 1500,
+        "location": "London",
+        "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg"
+      }
+    }
+  },
+  "GET /api/events/:event_id/attendees": {
+    "description": "responds with an array of all of the attendees for the event with the specified event_id",
+    "queries": {},
+    "exampleResponse": {
+      "attendees": [
+        "PawsAndPlay",
+        "FetchMaster"
+      ]
+    }
+  }
+}
