@@ -122,6 +122,18 @@ module.exports.updateEventInfoById = async (
     image,
   };
 
+  const checkEventIdValid = (
+    await db.query('SELECT event_id FROM events WHERE event_id = $1', [
+      event_id,
+    ])
+  ).rowCount;
+
+  if (!checkEventIdValid) {
+    return Promise.reject({
+      msg: 'The event with the specified event_id was not found',
+    });
+  }
+
   // Filter out undefined values
   const setClause = [];
 

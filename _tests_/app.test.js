@@ -536,6 +536,42 @@ describe('PATCH /api/events/:event_id', () => {
         });
       });
   });
+
+  test('status 404: should respond with a "not found" error when given a valid but non-existent event_id', () => {
+    return request(app)
+      .patch('/api/events/100')
+      .send({
+        title: 'Barks & Rec',
+        start_date: '2024-09-15 10:00:00Z',
+        end_date: '2024-09-16 22:00:00Z',
+        description: 'A day full of wagging tails!.',
+        price_in_pence: 2250,
+        location: 'Liverpool',
+      })
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('The event with the specified event_id was not found');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error when given an invalid event_id', () => {
+    return request(app)
+      .patch('/api/events/event1')
+      .send({
+        title: 'Barks & Rec',
+        start_date: '2024-09-15 10:00:00Z',
+        end_date: '2024-09-16 22:00:00Z',
+        description: 'A day full of wagging tails!.',
+        price_in_pence: 2250,
+        location: 'Liverpool',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. Please provide a valid event_id');
+      });
+  });
 });
 
 describe('PATCH /api/users/:user_id', () => {
