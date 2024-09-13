@@ -165,3 +165,55 @@ module.exports.updateEventInfoById = async (
 
   return updateEventQuery;
 };
+
+module.exports.addNewEvent = async (
+  title,
+  organiser,
+  description,
+  start_date,
+  end_date,
+  event_type,
+  price_in_pence,
+  location,
+  image
+) => {
+  // Check if the username stored in organiser is actually an organiser.
+
+  const checkIsOrganiser = (
+    await db.query('SELECT is_organiser FROM users WHERE username = $1', [
+      organiser,
+    ])
+  ).rows[0].is_organiser;
+
+  if (!checkIsOrganiser) {
+    return Promise.reject({
+      status: 400,
+      msg: 'You do not have sufficent privileges',
+    });
+  }
+
+  const insertEventQuery = (
+    await db.query(
+      `
+      INSERT INTO events
+        (title, organiser, description, event_type, start_date, end_date, price_in_pence, location, image)
+      VALUES
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      RETURNING *
+    `,
+      [
+        title,
+        organiser,
+        description,
+        event_type,
+        start_date,
+        end_date,
+        price_in_pence,
+        location,
+        image,
+      ]
+    )
+  ).rows[0];
+
+  return insertEventQuery;
+};

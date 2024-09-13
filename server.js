@@ -15,6 +15,7 @@ const {
   getEventAttendees,
   removeEventById,
   updateEventById,
+  addEvent,
 } = require('./controllers/events.controllers.js');
 
 const app = express();
@@ -38,6 +39,7 @@ app.get('/api/events/:event_id', getEventById);
 app.get('/api/events/:event_id/attendees', getEventAttendees);
 app.delete('/api/events/:event_id', removeEventById);
 app.patch('/api/events/:event_id', updateEventById);
+app.post('/api/events', addEvent);
 
 app.use((err, req, res, next) => {
   const type = req.path.split('/')[2].slice(0, -1);

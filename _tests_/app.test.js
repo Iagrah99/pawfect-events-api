@@ -624,3 +624,27 @@ describe('PATCH /api/users/:user_id', () => {
       });
   });
 });
+
+describe('POST /api/events', () => {
+  test.only('status 201: should respond with the event object that was created with the required event details provided', () => {
+    return request(app)
+      .post('/api/events')
+      .send({
+        title: 'Tails and Trails',
+        organiser: 'PawsAndPlay',
+        description: "We've got tales of many tails on trails",
+        start_date: '2024-10-12 09:00:00.00Z',
+        end_date: '2024-10-13 17:00:00.000Z',
+        event_type: 'Dog Walking',
+        price_in_pence: 700,
+        location: 'Birmingham',
+        image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
+      })
+      .expect(201)
+      .then(({ body }) => {
+        // post event if user is an organiser
+        // If not, state they have insufficient privileges.
+        const { event } = body;
+      });
+  });
+});
