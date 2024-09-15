@@ -60,5 +60,172 @@
         "FetchMaster"
       ]
     }
+  },
+  "POST /api/events": {
+    "description": "responds with should respond with the event object that was created with the required event details provided",
+    "queries": {},
+    "exampleRequest": {
+      "title": "Tails and Trails",
+      "organiser": "PawsAndPlay",
+      "description": "We've got tales of many tails on trails",
+      "start_date": "2024-10-12 09:00:00.00Z",
+      "end_date": "2024-10-13 17:00:00.00Z",
+      "event_type": "Dog Walking",
+      "price_in_pence": 700,
+      "location": "Birmingham",
+      "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg"
+    },
+    "event": {
+      "event_id": 4,
+      "title": "Tails and Trails",
+      "organiser": "PawsAndPlay",
+      "description": "We've got tales of many tails on trails",
+      "start_date": "2024-10-12T09:00:00.000Z",
+      "end_date": "2024-10-13T17:00:00.000Z",
+      "event_type": "Dog Walking",
+      "price_in_pence": 700,
+      "location": "Birmingham",
+      "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg"
+    }
+  },
+  "PATCH /api/events/:event_id": {
+    "description": "responds with the updated event associated with the specified event_id, leaving the other unedited properties unchanged",
+    "queries": {},
+    "exampleRequest": {
+      "title": "New title",
+      "description": "A fun-filled day in the park.",
+      "start_date": "2025-02-25T10:30",
+      "end_date": "2027-02-25T10:30",
+      "event_type": "Dog Training",
+      "price_in_pence": 2000,
+      "location": "Liverpool",
+      "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg"
+    },
+    "exampleResponse": {
+      "event": {
+        "event_id": 1,
+        "title": "New title",
+        "organiser": "PawsAndPlay",
+        "description": "A fun-filled day in the park.",
+        "start_date": "2025-02-25T10:30:00.000Z",
+        "end_date": "2027-02-25T10:30:00.000Z",
+        "event_type": "Dog Training",
+        "price_in_pence": 2000,
+        "location": "Liverpool",
+        "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg"
+      }
+    }
+  },
+  "DELETE /api/events/:event_id": {
+    "description": "removes the event with the specified event_id",
+    "queries": {},
+    "exampleResponse": {}
+  },
+  "GET /api/users": {
+    "description": "responds with an array of user objects with all their properties",
+    "queries": {},
+    "exampleResponse": {
+      "users": [
+        {
+          "user_id": 1,
+          "email": "pawsandplay@example.com",
+          "username": "PawsAndPlay",
+          "is_organiser": true,
+          "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+        }
+      ]
+    }
+  },
+  "GET /api/users/:user_id": {
+    "description": "responds with the user object associated with the specified user_id",
+    "queries": {},
+    "exampleResponse": {
+      "user": {
+        "user_id": 1,
+        "username": "PawsAndPlay",
+        "email": "pawsandplay@example.com",
+        "password": "encrypted_password_here",
+        "is_organiser": true,
+        "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+      }
+    }
+  },
+  "GET /api/users/:user_id/attending": {
+    "description": "responds with an object with the string \"eventsAttending\" as the key, and an array of events as its value for the user with the specified user_id",
+    "queries": {},
+    "exampleResponse": {
+      "eventsAttending": [
+        "Paws in the Park"
+      ]
+    }
+  },
+  "POST /api/users": {
+    "description": "responds with the user object that was created with the correct properties including the default avatar_url value if one is not specified by the user",
+    "queries": {},
+    "exampleRequest": {
+      "username": "New User",
+      "email": "newuser@email.com",
+      "password": "NewUser123!",
+      "isOrganiser": false,
+      "avatarUrl": ""
+    },
+    "exampleResponse": {
+      "user_id": 4,
+      "username": "New User",
+      "email": "newuser@email.com",
+      "password": "encrypted_password_here",
+      "is_organiser": false,
+      "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+    }
+  },
+  "POST /api/users/login": {
+    "description": "responds with the user object that was created with their user details if provided correct login credentials",
+    "queries": {},
+    "exampleRequest": {
+      "email": "fetchmaster@example.com",
+      "password": "unencrypted_password"
+    },
+    "exampleResponse": {
+      "user_id": 3,
+      "username": "FetchMaster",
+      "email": "fetchmaster@example.com",
+      "is_organiser": true,
+      "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+    }
+  },
+  "POST /api/users/:user_id/attending": {
+    "description": "respond with an object with the string \"eventsAttending\" as the key, and an updated array of events as its value for the user with the specified user_id with the added event appended to the array",
+    "queries": {},
+    "exampleRequest": {
+      "username": "PawsAndPlay",
+      "eventAttending": "Doggy Dash Derby"
+    },
+    "exampleResponse": {
+      "eventsAttending": [
+        "Paws in the Park",
+        "Doggy Dash Derby"
+      ]
+    }
+  },
+  "PATCH /api/users/:user_id": {
+    "description": "responds with the updated user associated with the specified user_id, leaving the other unedited properties unchanged",
+    "queries": {},
+    "exampleRequest": {
+      "username": "BarkBuddy",
+      "password": "new_password"
+    },
+    "exampleResponse": {
+      "user_id": 1,
+      "username": "BarkBuddy",
+      "email": "pawsandplay@example.com",
+      "password": "new_encrypted_password_here",
+      "is_organiser": true,
+      "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+    }
+  },
+  "DELETE /api/users/:user_id": {
+    "description": "removes the user with the specified user_id",
+    "queries": {},
+    "exampleResponse": {}
   }
 }

@@ -1,4 +1,7 @@
 const express = require('express');
+
+const { getEndpoints } = require('./controllers/api.controller.js');
+
 const {
   getUsers,
   getUserById,
@@ -22,6 +25,7 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/api', getEndpoints);
 app.get('/api/users', getUsers);
 app.get('/api/users/:user_id', getUserById);
 app.get('/api/users/:user_id/attending', getUserEventsAttending);

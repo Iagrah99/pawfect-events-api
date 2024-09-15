@@ -3,10 +3,22 @@ const app = require('../server');
 const db = require('../db/connection');
 const data = require('../db/data/test-data/index');
 const seed = require('../db/seed');
+const endpoints = require('../endpoints.json');
 
 afterAll(() => db.end());
 
 beforeEach(() => seed(data));
+
+describe('GET /api', () => {
+  test('status 200: should respond with a json representation of all the available endpoints of the api ', () => {
+    return request(app)
+      .get('/api')
+      .expect(200)
+      .then(({ body }) => {
+        expect(body).toEqual(endpoints);
+      });
+  });
+});
 
 describe('GET /api/users', () => {
   test('status 200: should respond with an array of user objects with all their properties', () => {
@@ -357,7 +369,7 @@ describe('POST /api/users', () => {
 });
 
 describe('POST /api/users/login', () => {
-  test('status 201: should respond with the user object that was created with their user details if provided correct login credentials ', () => {
+  test('status 201: should respond with the user object that was created with their user details if provided correct login credentials', () => {
     return request(app)
       .post('/api/users/login')
       .send({
