@@ -62,7 +62,7 @@
     }
   },
   "POST /api/events": {
-    "description": "responds with should respond with the event object that was created with the required event details provided",
+    "description": "responds with the event object that was created with the required event details provided",
     "queries": {},
     "exampleRequest": {
       "title": "Tails and Trails",
@@ -194,7 +194,7 @@
     }
   },
   "POST /api/users/:user_id/attending": {
-    "description": "respond with an object with the string \"eventsAttending\" as the key, and an updated array of events as its value for the user with the specified user_id with the added event appended to the array",
+    "description": "responds with an object with the string \"eventsAttending\" as the key, and an updated array of events as its value for the user with the specified user_id with the added event appended to the array",
     "queries": {},
     "exampleRequest": {
       "username": "PawsAndPlay",
