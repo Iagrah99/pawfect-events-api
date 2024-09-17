@@ -3,7 +3,7 @@ module.exports = [
     title: 'Paws in the Park',
     organiser: 'PawsAndPlay',
     start_date: '2024-10-15 10:00:00',
-    end_date: '2024-10-16 22:00:00',
+    end_date: '2024-10-15 13:00:00',
     description: 'A fun-filled day in the park.',
     event_type: 'Dog Show',
     priceInPence: 1500,
@@ -14,8 +14,8 @@ module.exports = [
   {
     title: 'Doggy Dash Derby',
     organiser: 'PawsAndPlay',
-    start_date: '2024-10-6 06:00:00',
-    end_date: '2024-10-8 18:00:00',
+    start_date: '2024-10-6 09:00:00',
+    end_date: '2024-10-6 12:00:00',
     description: 'Join us for an exciting dog race.',
     event_type: 'Dog Show',
     priceInPence: 2000,
@@ -26,8 +26,8 @@ module.exports = [
   {
     title: 'Fetch Fest',
     organiser: 'FetchMaster',
-    start_date: '2024-09-28 7:00:00',
-    end_date: '2024-09-29 17:00:00',
+    start_date: '2024-09-28 10:00:00',
+    end_date: '2024-09-28 13:00:00',
     description: 'A festival dedicated to all things fetch!',
     event_type: 'Dog Training',
     priceInPence: 1200,
@@ -39,7 +39,7 @@ module.exports = [
     title: 'Dog Agility Championship',
     organiser: 'FetchMaster',
     start_date: '2024-10-05 10:30:00',
-    end_date: '2024-10-12 15:30:00',
+    end_date: '2024-10-05 15:30:00',
     description:
       'Watch the top agility dogs in the country compete in this high-energy event, featuring obstacle courses, speed trials, and expert handling.',
     event_type: 'Agility Competition',
@@ -51,8 +51,8 @@ module.exports = [
   {
     title: 'Pooch Pool Party',
     organiser: 'PawsAndPlay',
-    start_date: '2025-07-01 07:00:00',
-    end_date: '2025-07-02 02:00:00',
+    start_date: '2025-07-01 11:00:00',
+    end_date: '2025-07-01 14:00:00',
     description:
       'A summer pool party for dogs of all sizes! Enjoy splash zones, water slides, and dog-friendly swimming pools. Dog lifeguards are on duty!',
     event_type: 'Agility Competition',
@@ -65,7 +65,7 @@ module.exports = [
     title: 'National Dog Show',
     organiser: 'FetchMaster',
     start_date: '2025-03-12 09:00:00',
-    end_date: '2025-03-15 20:00:00',
+    end_date: '2025-03-12 13:00:00',
     description:
       'One of the most prestigious dog shows in the UK, featuring various breeds competing for the Best in Show title. Includes obedience trials, breed judging, and grooming demonstrations.',
     event_type: 'Dog Show',
