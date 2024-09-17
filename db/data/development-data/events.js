@@ -46,7 +46,7 @@ module.exports = [
     priceInPence: 3000,
     location: 'London',
     image: 'https://i.ibb.co/nnXzPHy/r1x-XEgc-NX-1280.jpg',
-    attendees: ['WoofWanderer, PawsAndPlay'],
+    attendees: ['WoofWanderer', 'PawsAndPlay'],
   },
   {
     title: 'Pooch Pool Party',

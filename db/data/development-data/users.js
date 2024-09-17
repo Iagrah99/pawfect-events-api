@@ -5,7 +5,7 @@ module.exports = [
     password: 'BarkLover123!',
     isOrganiser: true,
     avatarUrl: 'https://i.ibb.co/db7BbZ6/default-dog.png',
-    eventsAttending: ['Paws in the Park'],
+    eventsAttending: ['Paws in the Park', 'Dog Agility Championship'],
   },
   {
     username: 'WoofWanderer',
@@ -13,7 +13,13 @@ module.exports = [
     password: 'DoggoTrail4Ever!',
     isOrganiser: false,
     avatarUrl: 'https://i.ibb.co/db7BbZ6/default-dog.png',
-    eventsAttending: ['Doggy Dash Derby', 'Fetch Fest'],
+    eventsAttending: [
+      'Doggy Dash Derby',
+      'Fetch Fest',
+      'Dog Agility Championship',
+      'Pooch Pool Party',
+      'National Dog Show',
+    ],
   },
   {
     username: 'FetchMaster',
