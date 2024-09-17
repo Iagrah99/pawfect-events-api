@@ -35,4 +35,43 @@ module.exports = [
     image: 'https://i.ibb.co/VDgyt73/Rv-LX2-Nm-BZ.jpg',
     attendees: ['WoofWanderer'],
   },
+  {
+    title: 'Dog Agility Championship',
+    organiser: 'FetchMaster',
+    start_date: '2024-10-05 10:30:00',
+    end_date: '2024-10-12 15:30:00',
+    description:
+      'Watch the top agility dogs in the country compete in this high-energy event, featuring obstacle courses, speed trials, and expert handling.',
+    event_type: 'Agility Competition',
+    priceInPence: 3000,
+    location: 'London',
+    image: 'https://i.ibb.co/nnXzPHy/r1x-XEgc-NX-1280.jpg',
+    attendees: ['WoofWanderer, PawsAndPlay'],
+  },
+  {
+    title: 'Pooch Pool Party',
+    organiser: 'PawsAndPlay',
+    start_date: '2025-07-01 07:00:00',
+    end_date: '2025-07-02 02:00:00',
+    description:
+      'A summer pool party for dogs of all sizes! Enjoy splash zones, water slides, and dog-friendly swimming pools. Dog lifeguards are on duty!',
+    event_type: 'Agility Competition',
+    priceInPence: 1250,
+    location: 'Plymouth',
+    image: 'https://i.ibb.co/wS964YL/BW9-Wn-Xl3-E.jpg',
+    attendees: ['WoofWanderer'],
+  },
+  {
+    title: 'National Dog Show',
+    organiser: 'FetchMaster',
+    start_date: '2025-03-12 09:00:00',
+    end_date: '2025-03-15 20:00:00',
+    description:
+      'One of the most prestigious dog shows in the UK, featuring various breeds competing for the Best in Show title. Includes obedience trials, breed judging, and grooming demonstrations.',
+    event_type: 'Dog Show',
+    priceInPence: 2500,
+    location: 'Manchester',
+    image: 'https://i.ibb.co/VWNjfLD/H6-UCIZJsc.jpg',
+    attendees: ['WoofWanderer'],
+  },
 ];
