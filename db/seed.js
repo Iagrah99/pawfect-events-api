@@ -27,8 +27,8 @@ async function seed({ usersData, eventsData }) {
         title VARCHAR NOT NULL,
         organiser VARCHAR NOT NULL REFERENCES users(username) ON DELETE CASCADE ON UPDATE CASCADE,
         description text NOT NULL,
-        start_date TIMESTAMPTZ(0) DEFAULT NOW() NOT NULL,
-        end_date TIMESTAMPTZ(0) DEFAULT (NOW() + INTERVAL '1 day') NOT NULL,
+        start_date TIMESTAMPTZ(0) NOT NULL,
+        end_date TIMESTAMPTZ(0) NOT NULL,
         event_type VARCHAR NOT NULL,
         price_in_pence INT,
         location VARCHAR(70) NOT NULL,
@@ -81,7 +81,7 @@ async function seed({ usersData, eventsData }) {
   const insertEventsQuery = format(
     `
       INSERT INTO events
-      (title, organiser, description, event_type, price_in_pence, location, image)
+      (title, organiser, description, start_date, end_date, event_type, price_in_pence, location, image)
       VALUES
       %L
     `,
@@ -90,6 +90,8 @@ async function seed({ usersData, eventsData }) {
         event.title,
         event.organiser,
         event.description,
+        event.start_date,
+        event.end_date,
         event.event_type,
         event.priceInPence,
         event.location,
