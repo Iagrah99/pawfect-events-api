@@ -733,3 +733,57 @@ describe('POST /api/events', () => {
       });
   });
 });
+
+describe.only('DELETE /api/users/:user_id/attending', () => {
+  test("status 204: should remove the event from the user's list of events they are currently attending", () => {
+    return request(app)
+      .delete('/api/users/2/attending')
+      .send({
+        event_title: 'Doggy Dash Derby',
+      })
+      .expect(204);
+  });
+
+  test('status: 404: should return with a "not found" error when given a valid but non-existent user_id', () => {
+    return request(app)
+      .delete('/api/users/100/attending')
+      .send({
+        event_title: 'Fetch Fest',
+      })
+      .expect(404)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe(
+          'Unable to opt out of the event because the user with the specified user_id does not exist'
+        );
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error when given an event to opt out of that doesn\'t exist', () => {
+    return request(app)
+      .delete('/api/users/2/attending')
+      .send({
+        event_title: 'unknown',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. The specified event does not exist');
+      });
+  });
+
+  test('status 400: should respond with a "bad request" error when given an event to opt out of that the user hasn\'t signed up for', () => {
+    return request(app)
+      .delete('/api/users/2/attending')
+      .send({
+        event_title: 'Paws in the Park',
+      })
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe(
+          'Bad request. Cannot opt out of an event that you have not signed up for'
+        );
+      });
+  });
+});

@@ -9,6 +9,7 @@ const {
   postUserEventAttending,
   deleteUserById,
   patchUserById,
+  deleteEventAttending,
 } = require('../models/users.models.js');
 
 module.exports.getUsers = async (req, res, next) => {
@@ -103,6 +104,18 @@ module.exports.updateUserById = async (req, res, next) => {
     } else {
       console.log("Passwords don't match!");
     }
+  } catch (err) {
+    next(err);
+  }
+};
+
+module.exports.removeEventAttending = async (req, res, next) => {
+  const { user_id } = req.params;
+  const { event_title } = req.body;
+
+  try {
+    await deleteEventAttending(user_id, event_title);
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

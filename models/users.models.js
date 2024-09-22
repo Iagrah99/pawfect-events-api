@@ -265,3 +265,47 @@ module.exports.patchUserById = async (user_id, username, password) => {
 
   return updatedUser;
 };
+
+module.exports.deleteEventAttending = async (user_id, event_title) => {
+  const fetchEventId = (
+    await db.query('SELECT event_id FROM events WHERE title = $1', [
+      event_title,
+    ])
+  ).rows[0];
+
+  if (!fetchEventId) {
+    return Promise.reject({
+      status: 400,
+      msg: 'Bad request. The specified event does not exist',
+    });
+  }
+
+  const { event_id } = fetchEventId;
+
+  const userIdExistsQuery = (
+    await db.query('SELECT user_id FROM users WHERE user_id = $1', [user_id])
+  ).rowCount;
+
+  if (!userIdExistsQuery) {
+    return Promise.reject({
+      status: 404,
+      msg: 'Unable to opt out of the event because the user with the specified user_id does not exist',
+    });
+  }
+
+  const deleteEventAttendingQuery = (
+    await db.query(
+      'DELETE FROM users_events WHERE user_id = $1 AND event_id = $2',
+      [user_id, event_id]
+    )
+  ).rowCount;
+
+  if (!deleteEventAttendingQuery) {
+    return Promise.reject({
+      status: 400,
+      msg: 'Bad request. Cannot opt out of an event that you have not signed up for',
+    });
+  }
+
+  return;
+};

@@ -12,6 +12,7 @@ const {
   addUserEventsAttending,
   removeUserById,
   updateUserById,
+  removeEventAttending,
 } = require('./controllers/users.controllers.js');
 const {
   getEvents,
@@ -36,6 +37,7 @@ app.post('/api/users/login', loginUser);
 app.post('/api/users/:user_id/attending', addUserEventsAttending);
 app.delete('/api/users/:user_id', removeUserById);
 app.patch('/api/users/:user_id', updateUserById);
+app.delete('/api/users/:user_id/attending', removeEventAttending);
 
 // post /api/users
 // JWT authentication?
