@@ -227,5 +227,13 @@
     "description": "removes the user with the specified user_id",
     "queries": {},
     "exampleResponse": {}
+  },
+  "DELETE /api/users/:user_id/attending": {
+    "description": "removes the event from the user with the specified user_id's list of events they are currently signed up for",
+    "queries": {},
+    "exampleRequest": {
+      "event_title": "Fetch Fest"
+    },
+    "exampleResponse": {}
   }
 }

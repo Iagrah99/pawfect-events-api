@@ -735,7 +735,7 @@ describe('POST /api/events', () => {
 });
 
 describe('DELETE /api/users/:user_id/attending', () => {
-  test("status 204: should remove the event from the user's list of events they are currently attending", () => {
+  test("status 204: should remove the event from the user with the specified user_id's list of events they are currently signed up for", () => {
     return request(app)
       .delete('/api/users/2/attending')
       .send({
