@@ -734,7 +734,7 @@ describe('POST /api/events', () => {
   });
 });
 
-describe.only('DELETE /api/users/:user_id/attending', () => {
+describe('DELETE /api/users/:user_id/attending', () => {
   test("status 204: should remove the event from the user's list of events they are currently attending", () => {
     return request(app)
       .delete('/api/users/2/attending')
