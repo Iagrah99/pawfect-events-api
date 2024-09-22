@@ -4,7 +4,7 @@ module.exports = [
     email: 'pawsandplay@example.com',
     password: 'BarkLover123!',
     isOrganiser: true,
-    avatarUrl: 'https://i.ibb.co/2jqyVfC/organiser-default-dog.png',
+    avatarUrl: 'https://i.ibb.co/pnFWP5W/organiser-default-dog.png',
     eventsAttending: ['Paws in the Park', 'Dog Agility Championship'],
   },
   {
@@ -26,7 +26,7 @@ module.exports = [
     email: 'fetchmaster@example.com',
     password: 'BallChaser2024!',
     isOrganiser: true,
-    avatarUrl: 'https://i.ibb.co/2jqyVfC/organiser-default-dog.png',
+    avatarUrl: 'https://i.ibb.co/pnFWP5W/organiser-default-dog.png',
     eventsAttending: ['Paws in the Park', 'Doggy Dash Derby'],
   },
 ];
