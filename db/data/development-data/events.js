@@ -7,7 +7,7 @@ module.exports = [
     description:
       'Paws in the Park is an exciting, family-friendly event celebrating the joy and companionship that pets bring into our lives. Held in the lush setting of London’s iconic Hyde Park, this one-day festival is a haven for pet owners, animal lovers, and their furry friends. The park will be transformed into a vibrant playground filled with fun activities, informative sessions, and opportunities for pets and humans alike to make new friends. The event will feature an array of attractions, including agility courses, pet photography booths, and grooming stations, along with a selection of pet-friendly food stalls and boutique vendors selling everything from organic treats to eco-friendly toys. Animal experts will be on hand offering free training tips and advice, while a series of adoption showcases will highlight dogs and cats in need of loving homes. There will also be plenty of entertainment, including live music, pet costume parades, and even a "Best in Park" competition to celebrate the cutest and most talented pets in the city. "Paws in the Park" promises to be a fun-filled day for all, with proceeds supporting local animal shelters across London.',
     event_type: 'Dog Show',
-    priceInPence: 1500,
+    priceInPence: 0,
     location: 'London',
     image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
     attendees: ['PawsAndPlay', 'FetchMaster'],
@@ -20,7 +20,7 @@ module.exports = [
     description:
       "Get ready for a tail-wagging good time at the Doggy Dash Derby, an exciting race event designed for dogs of all sizes and their enthusiastic owners. London's Regent's Park will be transformed into a canine racetrack where pups of all breeds will compete in a series of fun and lighthearted races. Whether you have a speedy Greyhound or a laid-back Bulldog, this event is open to all dogs who love a good run and want to show off their racing spirit! The Doggy Dash Derby will feature multiple race categories based on dog size and age, ensuring every pup gets their moment to shine. Between the races, there will be refreshment stations for both dogs and owners, as well as a pop-up pet market offering trendy accessories, gourmet treats, and race-day merchandise. Spectators are encouraged to come cheer on the contestants and enjoy the lively atmosphere. Awards will be given for the fastest dashers, as well as special prizes for the funniest and most determined runners. Don’t miss out on this pawsome event, where speed meets fun, and every dog is a winner!",
     event_type: 'Dog Show',
-    priceInPence: 2000,
+    priceInPence: 0,
     location: 'Manchester',
     image: 'https://i.ibb.co/R0fr3k2/S1-T8-Ee9-Nm-1280.jpg',
     attendees: ['WoofWanderer', 'FetchMaster'],
@@ -33,7 +33,7 @@ module.exports = [
     description:
       'Mark your calendars for Fetch Fest, a day dedicated to the timeless game of fetch and all the pups who love to play! Taking place at Battersea Park in London, this fun-filled event promises to bring together dogs, their owners, and dog lovers alike for a day of joyful play and community spirit. Whether your dog is a fetch fanatic or just enjoys the thrill of the chase, Fetch Fest has something for every canine companion. The event will feature exciting fetch competitions where dogs of all sizes can show off their speed, agility, and retrieval skills. Prizes will be awarded for the longest fetch, the fastest retriever, and even the most enthusiastic participant! In addition to the games, there will be interactive training sessions, expert-led talks on canine health and fitness, and a variety of food stalls offering delicious snacks for both humans and their furry friends. A special "Puppy Zone" will provide a safe space for younger dogs to socialize and play. With plenty of space to run and play, Fetch Fest is the perfect way to spend a fun, active day with your dog while supporting local animal charities.',
     event_type: 'Dog Training',
-    priceInPence: 1200,
+    priceInPence: 0,
     location: 'London',
     image: 'https://i.ibb.co/VDgyt73/Rv-LX2-Nm-BZ.jpg',
     attendees: ['WoofWanderer'],
@@ -46,7 +46,7 @@ module.exports = [
     description:
       "Join us for an exhilarating day of canine athleticism at the Dog Agility Championship at London's Crystal Palace Park. This prestigious event will bring together some of the most talented dogs and their handlers for an action-packed competition, where speed, precision, and teamwork take center stage. Whether you're an agility enthusiast or simply a dog lover, this event is a must-see, offering excitement for competitors and spectators alike. The championship will feature a challenging obstacle course designed to test dogs' agility, balance, and obedience. From weaving through poles to leaping over hurdles and racing through tunnels, every twist and turn will showcase the incredible skill and dedication of both dogs and their handlers. Categories will include different skill levels, from beginners to seasoned professionals, ensuring a competitive but fun atmosphere for all. Alongside the main event, there will be expert demonstrations, dog training tips, and vendor stalls offering everything from agility gear to gourmet dog treats. Don’t miss your chance to witness these remarkable dogs in action and support animal charities, with all proceeds going to local shelters.",
     event_type: 'Agility Competition',
-    priceInPence: 3000,
+    priceInPence: 0,
     location: 'London',
     image: 'https://i.ibb.co/nnXzPHy/r1x-XEgc-NX-1280.jpg',
     attendees: ['WoofWanderer', 'PawsAndPlay'],
@@ -59,7 +59,7 @@ module.exports = [
     description:
       'Make a splash with your furry friend at the Pooch Pool Party, the ultimate dog-friendly summer celebration! Held at the picturesque Tinside Lido in Plymouth, this one-of-a-kind event invites dogs and their owners to dive into fun together. With a pool reserved just for pups, this is the perfect way for your dog to cool off, splash around, and make new friends under the summer sun. The event will feature fun water activities for dogs of all swimming levels, from paddling in the shallow end to diving into the deep end for fetch games. Lifeguards and pet specialists will be on-site to ensure a safe and enjoyable experience for all. Outside the pool, there will be shaded relaxation areas, a photo booth to capture your pooch’s best post-swim moments, and stalls offering dog-friendly ice cream, poolside snacks, and trendy summer gear. Prizes will be awarded for the best swimmers, most stylish swimwear, and the most playful pooches. Bring your water-loving pup for a day of fun, laughter, and plenty of splashing at the Pooch Pool Party—a refreshing way to celebrate summer with your best friend!',
     event_type: 'Agility Competition',
-    priceInPence: 1250,
+    priceInPence: 0,
     location: 'Plymouth',
     image: 'https://i.ibb.co/wS964YL/BW9-Wn-Xl3-E.jpg',
     attendees: ['WoofWanderer'],
@@ -72,7 +72,7 @@ module.exports = [
     description:
       'Step into the world of canine excellence at the National Dog Show, taking place at Manchester Central. This prestigious event will gather top dogs and their handlers from across the country to compete in an array of categories, showcasing the beauty, agility, and poise of various breeds. Whether you\'re a dog enthusiast, breeder, or simply looking for a day of entertainment, the National Dog Show promises an unforgettable experience filled with stunning displays of canine talent. The event will feature breed judging, obedience demonstrations, and an exciting "Best in Show" competition where the finest dogs will vie for the coveted title. Attendees will have the chance to meet breeders, learn about different breeds, and watch experts demonstrate advanced training techniques. A dedicated marketplace will offer a selection of premium dog products, including grooming supplies, nutrition, and accessories. With plenty of opportunities to interact with dogs and their handlers, the National Dog Show is the perfect place to celebrate the special bond between humans and their four-legged companions. Don’t miss this iconic event that highlights the very best of the canine world!',
     event_type: 'Dog Show',
-    priceInPence: 2500,
+    priceInPence: 0,
     location: 'Manchester',
     image: 'https://i.ibb.co/VWNjfLD/H6-UCIZJsc.jpg',
     attendees: ['WoofWanderer'],
