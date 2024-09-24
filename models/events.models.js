@@ -184,7 +184,8 @@ module.exports.addNewEvent = async (
     !start_date ||
     !end_date ||
     !event_type ||
-    !price_in_pence ||
+    price_in_pence === null ||
+    price_in_pence === undefined ||
     !location ||
     !image
   ) {

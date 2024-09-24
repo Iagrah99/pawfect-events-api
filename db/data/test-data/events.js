@@ -6,7 +6,7 @@ module.exports = [
     end_date: '2024-10-16 22:00:00',
     description: 'A fun-filled day in the park.',
     event_type: 'Dog Show',
-    priceInPence: 1500,
+    priceInPence: 0,
     location: 'London',
     image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
     attendees: ['PawsAndPlay', 'FetchMaster'],

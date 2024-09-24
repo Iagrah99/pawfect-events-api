@@ -192,7 +192,7 @@ describe('GET /api/events/:event_id', () => {
           end_date: expect.any(String),
           description: 'A fun-filled day in the park.',
           event_type: 'Dog Show',
-          price_in_pence: 1500,
+          price_in_pence: 0,
           location: 'London',
           image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
         });
