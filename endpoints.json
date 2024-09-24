@@ -75,17 +75,19 @@
       "location": "Birmingham",
       "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg"
     },
-    "event": {
-      "event_id": 4,
-      "title": "Tails and Trails",
-      "organiser": "PawsAndPlay",
-      "description": "We've got tales of many tails on trails",
-      "start_date": "2024-10-12T09:00:00.000Z",
-      "end_date": "2024-10-13T17:00:00.000Z",
-      "event_type": "Dog Walking",
-      "price_in_pence": 700,
-      "location": "Birmingham",
-      "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg"
+    "exampleResponse": {
+      "event": {
+        "event_id": 4,
+        "title": "Tails and Trails",
+        "organiser": "PawsAndPlay",
+        "description": "We've got tales of many tails on trails",
+        "start_date": "2024-10-12T09:00:00.000Z",
+        "end_date": "2024-10-13T17:00:00.000Z",
+        "event_type": "Dog Walking",
+        "price_in_pence": 700,
+        "location": "Birmingham",
+        "image": "https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg"
+      }
     }
   },
   "PATCH /api/events/:event_id": {
