@@ -172,12 +172,14 @@
       "avatarUrl": ""
     },
     "exampleResponse": {
-      "user_id": 4,
-      "username": "New User",
-      "email": "newuser@email.com",
-      "password": "encrypted_password_here",
-      "is_organiser": false,
-      "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+      "newUser": {
+        "user_id": 4,
+        "username": "New User",
+        "email": "newuser@email.com",
+        "password": "encrypted_password_here",
+        "is_organiser": false,
+        "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+      }
     }
   },
   "POST /api/users/login": {
