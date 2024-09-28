@@ -11,6 +11,10 @@
         "organiser",
         "start_date",
         "end_date"
+      ],
+      "order_by": [
+        "ASC",
+        "DESC"
       ]
     },
     "exampleResponse": {
@@ -219,12 +223,14 @@
       "password": "new_password"
     },
     "exampleResponse": {
-      "user_id": 1,
-      "username": "BarkBuddy",
-      "email": "pawsandplay@example.com",
-      "password": "new_encrypted_password_here",
-      "is_organiser": true,
-      "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+      "user": {
+        "user_id": 1,
+        "username": "BarkBuddy",
+        "email": "pawsandplay@example.com",
+        "password": "new_encrypted_password_here",
+        "is_organiser": true,
+        "avatar_url": "https://i.ibb.co/db7BbZ6/default-dog.png"
+      }
     }
   },
   "DELETE /api/users/:user_id": {
