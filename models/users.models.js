@@ -230,9 +230,6 @@ module.exports.deleteUserById = async (user_id) => {
 };
 
 module.exports.patchUserById = async (user_id, username, password) => {
-  const columns = [user_id, username, password];
-  const keys = ['user_id', 'username', 'password'];
-
   const checkUserIdExists = (
     await db.query('SELECT user_id FROM users WHERE user_id = $1', [user_id])
   ).rowCount;
@@ -243,25 +240,28 @@ module.exports.patchUserById = async (user_id, username, password) => {
     });
   }
 
-  const definedParams = columns
-    .map((value, index) =>
-      value !== undefined ? { [keys[index]]: value } : null
-    )
-    .filter((item) => item !== null);
+  let query = 'UPDATE users SET ';
+  const queryParams = [];
+  let queryIndex = 1;
 
-  const queryParams = definedParams.map((param) => Object.values(param)[0]);
+  if (username) {
+    query += `username = $${queryIndex}, `;
+    queryParams.push(username);
+    queryIndex++;
+  }
 
-  const updatedUser = (
-    await db.query(
-      `UPDATE users
-        SET
-          username = $1,
-          password = $2
-        WHERE user_id = $3
-        RETURNING *;`,
-      [queryParams[1], queryParams[2], queryParams[0]]
-    )
-  ).rows[0];
+  if (password) {
+    query += `password = $${queryIndex}, `;
+    queryParams.push(password);
+    queryIndex++;
+  }
+
+  query = query.slice(0, -2);
+
+  query += ` WHERE user_id = $${queryIndex} RETURNING *;`;
+  queryParams.push(user_id);
+
+  const updatedUser = (await db.query(query, queryParams)).rows[0];
 
   return updatedUser;
 };

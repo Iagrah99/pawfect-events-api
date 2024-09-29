@@ -608,6 +608,27 @@ describe('PATCH /api/users/:user_id', () => {
       });
   });
 
+  test("status 200: should respond with the current password if a new one isn't provided by the user", () => {
+    return request(app)
+      .patch('/api/users/1')
+      .send({
+        username: 'BarkBuddy',
+        password: '',
+      })
+      .expect(200)
+      .then(({ body }) => {
+        const { user } = body;
+        expect(user).toMatchObject({
+          user_id: 1,
+          username: 'BarkBuddy',
+          email: 'pawsandplay@example.com',
+          password: expect.any(String),
+          is_organiser: true,
+          avatar_url: 'https://i.ibb.co/db7BbZ6/default-dog.png',
+        });
+      });
+  });
+
   test('status 404: should return with a "not found" error when given a valid but non-existent', () => {
     return request(app)
       .patch('/api/users/100')
