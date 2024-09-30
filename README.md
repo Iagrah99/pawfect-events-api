@@ -2,10 +2,7 @@
 
 ## Table of Contents
 1. [Project Overview](#project-overview)
-2. [Features](#features)
-3. [Tech Stack](#tech-stack)
-4. [API Integrations](#api-integrations)
-5. [Installation & Setup](#installation--setup)
+2. [Installation & Setup](#installation--setup)
 
 ## Project Overview
 
