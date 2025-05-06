@@ -9,7 +9,8 @@ module.exports = [
     event_type: 'Dog Show',
     priceInPence: 0,
     location: 'London',
-    image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566595/5_aluql5.png',
     attendees: ['PawsAndPlay', 'FetchMaster'],
   },
   {
@@ -22,7 +23,8 @@ module.exports = [
     event_type: 'Dog Show',
     priceInPence: 0,
     location: 'Manchester',
-    image: 'https://i.ibb.co/R0fr3k2/S1-T8-Ee9-Nm-1280.jpg',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/2_ocvon9.png',
     attendees: ['WoofWanderer', 'FetchMaster'],
   },
   {
@@ -35,7 +37,8 @@ module.exports = [
     event_type: 'Dog Training',
     priceInPence: 0,
     location: 'London',
-    image: 'https://i.ibb.co/VDgyt73/Rv-LX2-Nm-BZ.jpg',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/3_hke6o8.png',
     attendees: ['WoofWanderer'],
   },
   {
@@ -48,7 +51,8 @@ module.exports = [
     event_type: 'Agility Competition',
     priceInPence: 0,
     location: 'London',
-    image: 'https://i.ibb.co/nnXzPHy/r1x-XEgc-NX-1280.jpg',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566596/1_iwxati.png',
     attendees: ['WoofWanderer', 'PawsAndPlay'],
   },
   {
@@ -61,7 +65,8 @@ module.exports = [
     event_type: 'Agility Competition',
     priceInPence: 0,
     location: 'Plymouth',
-    image: 'https://i.ibb.co/wS964YL/BW9-Wn-Xl3-E.jpg',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/6_dipfkj.png',
     attendees: ['WoofWanderer'],
   },
   {
@@ -74,7 +79,8 @@ module.exports = [
     event_type: 'Dog Show',
     priceInPence: 0,
     location: 'Manchester',
-    image: 'https://i.ibb.co/VWNjfLD/H6-UCIZJsc.jpg',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/4_kuewdv.png',
     attendees: ['WoofWanderer'],
   },
 ];
