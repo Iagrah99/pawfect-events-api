@@ -691,6 +691,38 @@ describe('POST /api/events', () => {
       });
   });
 
+  test('status 201: should generate a random dog img if the image property was left empty', () => {
+    return request(app)
+      .post('/api/events')
+      .send({
+        title: 'Tails and Trails',
+        organiser: 'PawsAndPlay',
+        description: "We've got tales of many tails on trails",
+        start_date: '2024-10-12 09:00:00.00Z',
+        end_date: '2024-10-13 17:00:00.00Z',
+        event_type: 'Dog Walking',
+        price_in_pence: 700,
+        location: 'Birmingham',
+        image: '',
+      })
+      .expect(201)
+      .then(({ body }) => {
+        const { event } = body;
+        expect(event).toMatchObject({
+          event_id: 4,
+          title: 'Tails and Trails',
+          organiser: 'PawsAndPlay',
+          description: "We've got tales of many tails on trails",
+          start_date: '2024-10-12T09:00:00.000Z',
+          end_date: '2024-10-13T17:00:00.000Z',
+          event_type: 'Dog Walking',
+          price_in_pence: 700,
+          location: 'Birmingham',
+          image: expect.any(String),
+        });
+      });
+  });
+
   test('status 400: should respond with a "bad request" error if the user lacks privileges to post events', () => {
     return request(app)
       .post('/api/events')

@@ -1,5 +1,6 @@
 const db = require('../db/connection');
 const format = require('pg-format');
+const { GenerateDogImg } = require('../utils/fetchDogImage');
 
 module.exports.fetchEvents = async (sort_by = 'title', order_by = 'ASC') => {
   const validSortByQueries = [
@@ -186,13 +187,16 @@ module.exports.addNewEvent = async (
     !event_type ||
     price_in_pence === null ||
     price_in_pence === undefined ||
-    !location ||
-    !image
+    !location
   ) {
     return Promise.reject({
       status: 400,
       msg: 'Please fill out the required fields',
     });
+  }
+
+  if (!image) {
+    await GenerateDogImg();
   }
 
   const checkEventExists = (
