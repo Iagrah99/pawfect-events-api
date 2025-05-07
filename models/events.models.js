@@ -196,7 +196,8 @@ module.exports.addNewEvent = async (
   }
 
   if (!image) {
-    await GenerateDogImg();
+    image = await GenerateDogImg();
+    // console.log(image);
   }
 
   const checkEventExists = (
