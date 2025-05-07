@@ -83,4 +83,32 @@ module.exports = [
       'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/4_kuewdv.png',
     attendees: ['WoofWanderer'],
   },
+  {
+    title: 'Bark & Brunch Social',
+    organiser: 'PawsAndPlay',
+    start_date: '2024-11-03 10:00:00',
+    end_date: '2024-11-03 13:00:00',
+    description:
+      "Join fellow dog lovers for a relaxed and delicious morning at the Bark & Brunch Social, hosted in the vibrant outdoor patio of the Bristol Botanical Gardens Café. This event is designed for pups and their humans to enjoy quality time together over freshly brewed coffee, gourmet brunch bites, and tail-wagging treats. The café will serve a special dog-friendly menu, including pupcakes, peanut butter biscuits, and chicken broth puppuccinos. While owners enjoy a relaxing meal and social atmosphere, dogs can mingle in the adjacent play area featuring toys, cooling stations, and shaded lounges. Local pet vendors will be on-site offering samples, grooming advice, and free goodie bags for early attendees. Whether you're a seasoned dog parent or a new pup owner, Bark & Brunch is the perfect Sunday social to meet like-minded companions and enjoy a delicious, dog-loving morning.",
+    event_type: 'Dog Show',
+    priceInPence: 500,
+    location: 'Bristol',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746616893/p1hpdkb76dtpkc4ph4cr.jpg',
+    attendees: ['PawsAndPlay', 'WoofWanderer'],
+  },
+  {
+    title: 'Howl-o-Ween Parade',
+    organiser: 'FetchMaster',
+    start_date: '2024-10-31 16:00:00',
+    end_date: '2024-10-31 19:00:00',
+    description:
+      "Celebrate spooky season with your four-legged friend at the Howl-o-Ween Parade, a festive event filled with costumes, treats, and plenty of tricks! Hosted in Birmingham’s Cannon Hill Park, this Halloween-themed gathering invites dogs and their owners to dress up and strut their stuff in a spirited costume parade. Prizes will be awarded for scariest costume, funniest outfit, best dog-human duo, and more. The event also includes pumpkin-themed agility games, a trick-for-treats training zone, and a haunted photo booth to capture your pup’s spooky style. Food stalls will offer autumnal snacks for humans and themed goodies for pups, including pumpkin chews and ghost-shaped biscuits. Local shelters will also be present with adoptable pets dressed in festive wear, hoping to find their forever homes. Whether you're a fan of Halloween or just love dogs in costumes, the Howl-o-Ween Parade promises a tail-wagging good time for the whole family.",
+    event_type: 'Agility Competition',
+    priceInPence: 0,
+    location: 'Birmingham',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746619180/getm3cbw7prbrdkc8goh.jpg',
+    attendees: ['FetchMaster', 'PawsAndPlay'],
+  },
 ];
