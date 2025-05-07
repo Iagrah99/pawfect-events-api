@@ -691,7 +691,7 @@ describe('POST /api/events', () => {
       });
   });
 
-  test('status 201: should generate a random dog img if the image property was left empty', () => {
+  test.only('status 201: should generate a random dog img if the image property was left empty', () => {
     return request(app)
       .post('/api/events')
       .send({

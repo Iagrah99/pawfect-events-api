@@ -195,9 +195,8 @@ module.exports.addNewEvent = async (
     });
   }
 
-  if (!image) {
+  if (!image || image.trim() === '') {
     image = await GenerateDogImg();
-    // console.log(image);
   }
 
   const checkEventExists = (
