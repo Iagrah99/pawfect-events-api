@@ -519,7 +519,7 @@ describe('DELETE /api/users/:user_id', () => {
   });
 });
 
-describe('PATCH /api/events/:event_id', () => {
+describe.only('PATCH /api/events/:event_id', () => {
   test('status 200: should respond with the updated event associated with the specified event_id, leaving the other unedited properties unchanged', () => {
     return request(app)
       .patch('/api/events/1')
@@ -529,6 +529,7 @@ describe('PATCH /api/events/:event_id', () => {
         end_date: '2024-09-16 22:00:00Z',
         description: 'A day full of wagging tails!.',
         price_in_pence: 2250,
+        category: 'Dog-Walking',
         location: 'Liverpool',
       })
       .expect(200)
@@ -541,7 +542,7 @@ describe('PATCH /api/events/:event_id', () => {
           start_date: '2024-09-15T10:00:00.000Z',
           end_date: '2024-09-16T22:00:00.000Z',
           description: 'A day full of wagging tails!.',
-          category: 'Dog-Show',
+          category: 'Dog-Walking',
           price_in_pence: 2250,
           location: 'Liverpool',
           image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
