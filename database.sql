@@ -11,7 +11,7 @@ VALUES
   ('FetchMaster', 'fetchmaster@example.com', 'BallChaser2024!', TRUE);
 
 INSERT INTO events
-  (title, organiser, description, event_type, price_in_pence, location)
+  (title, organiser, description, category, price_in_pence, location)
 VALUES
   ('Paws in the Park', 'PawsAndPlay', 'A fun-filled day in the park.', 'Dog Show', 1500, 'London'),
   ('Doggy Dash Derby', 'PawsAndPlay', 'Join us for an exciting dog race.', 'Dog Show', 2000, 'Manchester'),

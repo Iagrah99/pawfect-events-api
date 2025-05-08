@@ -105,7 +105,7 @@ module.exports.updateEventInfoById = async (
   start_date,
   end_date,
   description,
-  event_type,
+  category,
   price_in_pence,
   location,
   image
@@ -117,7 +117,7 @@ module.exports.updateEventInfoById = async (
     start_date,
     end_date,
     description,
-    event_type,
+    category,
     price_in_pence,
     location,
     image,
@@ -173,7 +173,7 @@ module.exports.addNewEvent = async (
   description,
   start_date,
   end_date,
-  event_type,
+  category,
   price_in_pence,
   location,
   image
@@ -184,7 +184,7 @@ module.exports.addNewEvent = async (
     !description ||
     !start_date ||
     !end_date ||
-    !event_type ||
+    !category ||
     price_in_pence === null ||
     price_in_pence === undefined ||
     !location
@@ -224,7 +224,7 @@ module.exports.addNewEvent = async (
     await db.query(
       `
       INSERT INTO events
-        (title, organiser, description, event_type, start_date, end_date, price_in_pence, location, image)
+        (title, organiser, description, category, start_date, end_date, price_in_pence, location, image)
       VALUES
         ($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *
@@ -233,7 +233,7 @@ module.exports.addNewEvent = async (
         title,
         organiser,
         description,
-        event_type,
+        category,
         start_date,
         end_date,
         price_in_pence,

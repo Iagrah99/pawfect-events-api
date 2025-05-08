@@ -23,6 +23,8 @@ const {
   addEvent,
 } = require('./controllers/events.controllers.js');
 
+const { getCategories } = require('./controllers/categories.controller.js');
+
 const app = express();
 
 app.use(express.json());
@@ -48,6 +50,8 @@ app.get('/api/events/:event_id/attendees', getEventAttendees);
 app.delete('/api/events/:event_id', removeEventById);
 app.patch('/api/events/:event_id', updateEventById);
 app.post('/api/events', addEvent);
+
+app.get('/api/categories', getCategories);
 
 app.use((err, req, res, next) => {
   const type = req.path.split('/')[2].slice(0, -1);

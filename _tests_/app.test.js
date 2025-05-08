@@ -87,7 +87,7 @@ describe('GET /api/users/:user_id/attending', () => {
       .expect(200)
       .then(({ body }) => {
         expect(body).toMatchObject({
-          eventsAttending: ['Doggy Dash Derby', 'Fetch Fest'],
+          eventsAttending: ['Doggy Dash Derby'],
         });
       });
   });
@@ -129,7 +129,7 @@ describe('GET /api/events', () => {
             start_date: expect.any(String),
             end_date: expect.any(String),
             description: expect.any(String),
-            event_type: expect.any(String),
+            category: expect.any(String),
             price_in_pence: expect.any(Number),
             location: expect.any(String),
             image: expect.any(String),
@@ -191,7 +191,7 @@ describe('GET /api/events/:event_id', () => {
           start_date: expect.any(String),
           end_date: expect.any(String),
           description: 'A fun-filled day in the park.',
-          event_type: 'Dog Show',
+          category: 'Dog-Show',
           price_in_pence: 0,
           location: 'London',
           image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
@@ -229,7 +229,7 @@ describe('GET /api/events/:event_id/attendees', () => {
       .expect(200)
       .then(({ body }) => {
         expect(body).toMatchObject({
-          attendees: ['PawsAndPlay', 'FetchMaster'],
+          attendees: ['FetchMaster'],
         });
       });
   });
@@ -272,7 +272,7 @@ describe('POST /api/users', () => {
       .then(({ body }) => {
         const { newUser } = body;
         expect(newUser).toMatchObject({
-          user_id: 4,
+          user_id: 6,
           username: 'New User',
           email: 'newuser@email.com',
           password: expect.any(String),
@@ -433,7 +433,7 @@ describe('POST /api/users/:user_id/attending', () => {
       .then(({ body }) => {
         expect(body).toMatchObject({
           // Responds with the updated array of events the user is attending
-          eventsAttending: ['Paws in the Park', 'Doggy Dash Derby'],
+          eventsAttending: ['Paws in Motion', 'Doggy Dash Derby'],
         });
       });
   });
@@ -457,7 +457,7 @@ describe('POST /api/users/:user_id/attending', () => {
       .post('/api/users/1/attending')
       .send({
         username: 'PawsAndPlay',
-        eventAttending: 'Paws in the Park',
+        eventAttending: 'Paws in Motion',
       })
       .expect(400)
       .then(({ body }) => {
@@ -541,7 +541,7 @@ describe('PATCH /api/events/:event_id', () => {
           start_date: '2024-09-15T10:00:00.000Z',
           end_date: '2024-09-16T22:00:00.000Z',
           description: 'A day full of wagging tails!.',
-          event_type: 'Dog Show',
+          category: 'Dog-Show',
           price_in_pence: 2250,
           location: 'Liverpool',
           image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
@@ -668,7 +668,7 @@ describe('POST /api/events', () => {
         description: "We've got tales of many tails on trails",
         start_date: '2024-10-12 09:00:00.00Z',
         end_date: '2024-10-13 17:00:00.00Z',
-        event_type: 'Dog Walking',
+        category: 'Dog-Walking',
         price_in_pence: 700,
         location: 'Birmingham',
         image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
@@ -677,13 +677,13 @@ describe('POST /api/events', () => {
       .then(({ body }) => {
         const { event } = body;
         expect(event).toMatchObject({
-          event_id: 4,
+          event_id: 6,
           title: 'Tails and Trails',
           organiser: 'PawsAndPlay',
           description: "We've got tales of many tails on trails",
           start_date: '2024-10-12T09:00:00.000Z',
           end_date: '2024-10-13T17:00:00.000Z',
-          event_type: 'Dog Walking',
+          category: 'Dog-Walking',
           price_in_pence: 700,
           location: 'Birmingham',
           image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
@@ -691,7 +691,7 @@ describe('POST /api/events', () => {
       });
   });
 
-  test.only('status 201: should generate a random dog img if the image property was left empty', () => {
+  test('status 201: should generate a random dog img if the image property was left empty', () => {
     return request(app)
       .post('/api/events')
       .send({
@@ -700,7 +700,7 @@ describe('POST /api/events', () => {
         description: "We've got tales of many tails on trails",
         start_date: '2024-10-12 09:00:00.00Z',
         end_date: '2024-10-13 17:00:00.00Z',
-        event_type: 'Dog Walking',
+        category: 'Dog-Walking',
         price_in_pence: 700,
         location: 'Birmingham',
         image: '',
@@ -709,13 +709,13 @@ describe('POST /api/events', () => {
       .then(({ body }) => {
         const { event } = body;
         expect(event).toMatchObject({
-          event_id: 4,
+          event_id: 6,
           title: 'Tails and Trails',
           organiser: 'PawsAndPlay',
           description: "We've got tales of many tails on trails",
           start_date: '2024-10-12T09:00:00.000Z',
           end_date: '2024-10-13T17:00:00.000Z',
-          event_type: 'Dog Walking',
+          category: 'Dog-Walking',
           price_in_pence: 700,
           location: 'Birmingham',
           image: expect.any(String),
@@ -732,7 +732,7 @@ describe('POST /api/events', () => {
         description: "We've got tales of many tails on trails",
         start_date: '2024-10-12 09:00:00.00Z',
         end_date: '2024-10-13 17:00:00.00Z',
-        event_type: 'Dog Walking',
+        category: 'Dog-Walking',
         price_in_pence: 700,
         location: 'Birmingham',
         image: 'https://i.ibb.co/2Y8bKmQ/BPp0q-Bhb-V.jpg',
@@ -753,7 +753,7 @@ describe('POST /api/events', () => {
         description: '',
         start_date: '',
         end_date: '',
-        event_type: '',
+        category: '',
         price_in_pence: 0,
         location: '',
         image: '',
@@ -774,7 +774,7 @@ describe('POST /api/events', () => {
         description: 'Join us for an exciting dog race.',
         start_date: '2024-09-13T17:15:50.000Z',
         end_date: '2024-09-14T17:15:50.000Z',
-        event_type: 'Dog Show',
+        category: 'Dog-Show',
         price_in_pence: 2000,
         location: 'Manchester',
         image: 'https://i.ibb.co/R0fr3k2/S1-T8-Ee9-Nm-1280.jpg',
@@ -790,7 +790,7 @@ describe('POST /api/events', () => {
 describe('DELETE /api/users/:user_id/attending', () => {
   test("status 204: should remove the event from the user with the specified user_id's list of events they are currently signed up for", () => {
     return request(app)
-      .delete('/api/users/2/attending')
+      .delete('/api/users/3/attending')
       .send({
         event_title: 'Doggy Dash Derby',
       })
@@ -801,7 +801,7 @@ describe('DELETE /api/users/:user_id/attending', () => {
     return request(app)
       .delete('/api/users/100/attending')
       .send({
-        event_title: 'Fetch Fest',
+        event_title: 'Paws in the Park',
       })
       .expect(404)
       .then(({ body }) => {
@@ -837,6 +837,22 @@ describe('DELETE /api/users/:user_id/attending', () => {
         expect(msg).toBe(
           'Bad request. Cannot opt out of an event that you have not signed up for'
         );
+      });
+  });
+});
+
+describe.only('GET /api/categories', () => {
+  test('status: 200: should respond with an array of objects containing each valid event category', () => {
+    return request(app)
+      .get('/api/categories')
+      .expect(({ body }) => {
+        const { categories } = body;
+        expect(categories.length).toBe(5);
+        categories.forEach((category) => {
+          expect(category).toMatchObject({
+            slug: expect.any(String),
+          });
+        });
       });
   });
 });

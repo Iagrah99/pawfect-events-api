@@ -37,6 +37,27 @@
       ]
     }
   },
+  "GET /api/categories": {
+    "description": "responds with an array of all of the existing event categories",
+    "queries": {},
+    "exampleResponse": [
+      {
+        "slug": "Dog-Show"
+      },
+      {
+        "slug": "Dog-Walking"
+      },
+      {
+        "slug": "Dog-Training"
+      },
+      {
+        "slug": "Agility-Trials"
+      },
+      {
+        "slug": "Herding-Trials"
+      }
+    ]
+  },
   "GET /api/events/:event_id": {
     "description": "responds with the event object associated with the specified event_id",
     "queries": {},

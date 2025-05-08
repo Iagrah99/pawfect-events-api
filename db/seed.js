@@ -2,8 +2,9 @@ const connection = require('./connection');
 const format = require('pg-format');
 const bcrypt = require('bcrypt');
 
-async function seed({ usersData, eventsData }) {
+async function seed({ usersData, eventsData, categoryData }) {
   await connection.query('DROP TABLE IF EXISTS users_events');
+  await connection.query(`DROP TABLE IF EXISTS categories`);
   await connection.query('DROP TABLE IF EXISTS events');
   await connection.query('DROP TABLE IF EXISTS users');
   await connection.query(
@@ -29,13 +30,23 @@ async function seed({ usersData, eventsData }) {
         description text NOT NULL,
         start_date TIMESTAMPTZ(0) NOT NULL,
         end_date TIMESTAMPTZ(0) NOT NULL,
-        event_type VARCHAR NOT NULL,
+        category VARCHAR NOT NULL,
         price_in_pence INT,
         location VARCHAR(70) NOT NULL,
         image VARCHAR NOT NULL
       );
     `
   );
+
+  await connection.query(
+    `
+      CREATE TABLE categories
+      (
+        slug VARCHAR PRIMARY KEY
+      );
+    `
+  );
+
   await connection.query(
     `
       CREATE TABLE users_events
@@ -81,7 +92,7 @@ async function seed({ usersData, eventsData }) {
   const insertEventsQuery = format(
     `
       INSERT INTO events
-      (title, organiser, description, start_date, end_date, event_type, price_in_pence, location, image)
+      (title, organiser, description, start_date, end_date, category, price_in_pence, location, image)
       VALUES
       %L
     `,
@@ -92,7 +103,7 @@ async function seed({ usersData, eventsData }) {
         event.description,
         event.start_date,
         event.end_date,
-        event.event_type,
+        event.category,
         event.priceInPence,
         event.location,
         event.image,
@@ -100,6 +111,19 @@ async function seed({ usersData, eventsData }) {
     })
   );
   await connection.query(insertEventsQuery);
+
+  const insertCategoriesQuery = format(
+    `
+      INSERT INTO categories
+      (slug)
+      VALUES
+      %L
+    `,
+    categoryData.map((category) => {
+      return [category.slug];
+    })
+  );
+  await connection.query(insertCategoriesQuery);
 
   const usersEventsValues = [];
 

@@ -11,7 +11,7 @@ exports.GenerateDogImg = async () => {
       resource_type: 'image',
     });
 
-    console.log('Success', JSON.stringify(result, null, 2));
+    // console.log('Success', JSON.stringify(result, null, 2));
 
     return result.secure_url;
   } catch (err) {
