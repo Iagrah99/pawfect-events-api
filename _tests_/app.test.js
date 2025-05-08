@@ -841,7 +841,7 @@ describe('DELETE /api/users/:user_id/attending', () => {
   });
 });
 
-describe.only('GET /api/categories', () => {
+describe('GET /api/categories', () => {
   test('status: 200: should respond with an array of objects containing each valid event category', () => {
     return request(app)
       .get('/api/categories')
