@@ -1,7 +1,7 @@
 module.exports = [
-  { slug: 'dog-show' },
-  { slug: 'dog-walking' },
-  { slug: 'dog-training' },
-  { slug: 'agility-trials' },
-  { slug: 'herding-trials' },
+  { slug: 'Dog-Show' },
+  { slug: 'Dog-Walking' },
+  { slug: 'Dog-Training' },
+  { slug: 'Agility-Trials' },
+  { slug: 'Herding-Trials' },
 ];
