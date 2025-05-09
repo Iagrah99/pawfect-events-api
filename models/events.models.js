@@ -1,8 +1,13 @@
 const db = require('../db/connection');
 const format = require('pg-format');
 const { GenerateDogImg } = require('../utils/fetchDogImage');
+const { fetchCategoriesData } = require('./categories.models');
 
-module.exports.fetchEvents = async (sort_by = 'title', order_by = 'ASC') => {
+module.exports.fetchEvents = async (
+  sort_by = 'title',
+  order_by = 'ASC',
+  category
+) => {
   const validSortByQueries = [
     'title',
     'price_in_pence',
@@ -27,9 +32,29 @@ module.exports.fetchEvents = async (sort_by = 'title', order_by = 'ASC') => {
     });
   }
 
-  return (
-    await db.query(`SELECT * FROM events ORDER BY ${sort_by} ${order_by}`)
-  ).rows;
+  let queryStr = 'SELECT * FROM events';
+  const queryParams = [];
+
+  if (category) {
+    const validCategories = (await fetchCategoriesData()).map(
+      (cat) => cat.slug
+    );
+
+    if (!validCategories.includes(category)) {
+      return Promise.reject({
+        status: 400,
+        msg: 'Bad request. Please provide a valid category query.',
+      });
+    }
+
+    queryParams.push(category);
+    queryStr += ` WHERE category = $1`;
+  }
+
+  queryStr += ` ORDER BY ${sort_by} ${order_by};`;
+
+  const { rows } = await db.query(queryStr, queryParams);
+  return rows;
 };
 
 module.exports.fetchEventById = async (event_id) => {

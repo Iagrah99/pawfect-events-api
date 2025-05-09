@@ -156,6 +156,39 @@ describe('GET /api/events', () => {
       });
   });
 
+  test('status 200: should filter the events by the specified event category', () => {
+    return request(app)
+      .get('/api/events?category=Dog-Show')
+      .then(({ body }) => {
+        const { events } = body;
+        expect(events.length).toBe(2);
+        events.forEach((event) => {
+          expect(event).toMatchObject({
+            event_id: expect.any(Number),
+            title: expect.any(String),
+            organiser: expect.any(String),
+            start_date: expect.any(String),
+            end_date: expect.any(String),
+            description: expect.any(String),
+            category: 'Dog-Show',
+            price_in_pence: expect.any(Number),
+            location: expect.any(String),
+            image: expect.any(String),
+          });
+        });
+      });
+  });
+
+  test('status 400: should respond with a bad request error when provided an invalid category query', () => {
+    return request(app)
+      .get('/api/events?category=cats')
+      .expect(400)
+      .then(({ body }) => {
+        const { msg } = body;
+        expect(msg).toBe('Bad request. Please provide a valid category query.');
+      });
+  });
+
   test('status 400: should respond with a bad request error when provided an invalid sort_by query', () => {
     return request(app)
       .get('/api/events?sort_by=nonsense')
@@ -519,7 +552,7 @@ describe('DELETE /api/users/:user_id', () => {
   });
 });
 
-describe.only('PATCH /api/events/:event_id', () => {
+describe('PATCH /api/events/:event_id', () => {
   test('status 200: should respond with the updated event associated with the specified event_id, leaving the other unedited properties unchanged', () => {
     return request(app)
       .patch('/api/events/1')
