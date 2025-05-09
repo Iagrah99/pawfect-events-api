@@ -1,10 +1,10 @@
 module.exports = [
-  { slug: 'Dog-Shows' },
+  { slug: 'Dog-Show' },
   { slug: 'Dog-Walking' },
   { slug: 'Dog-Training' },
-  { slug: 'Dog-Competitions' },
-  { slug: 'Agility-Trials' },
-  { slug: 'Herding-Trials' },
-  { slug: 'Obedience-Trials' },
-  { slug: 'Breed-Meetups' },
+  { slug: 'Dog-Competition' },
+  { slug: 'Agility-Trial' },
+  { slug: 'Herding-Trial' },
+  { slug: 'Obedience-Trial' },
+  { slug: 'Breed-Meetup' },
 ];
