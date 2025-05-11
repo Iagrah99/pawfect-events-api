@@ -10,7 +10,7 @@ module.exports = [
     priceInPence: 0,
     location: 'London',
     image:
-      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566595/5_aluql5.png',
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746968932/9_pcnjxg.jpg',
     attendees: ['PawsAndPlay', 'FetchMaster'],
   },
   {
@@ -24,7 +24,7 @@ module.exports = [
     priceInPence: 0,
     location: 'Manchester',
     image:
-      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/2_ocvon9.png',
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746968542/10_v39em1.jpg',
     attendees: ['WoofWanderer', 'FetchMaster'],
   },
   {
@@ -38,7 +38,7 @@ module.exports = [
     priceInPence: 0,
     location: 'London',
     image:
-      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/3_hke6o8.png',
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746968933/12_m33auk.jpg',
     attendees: ['WoofWanderer'],
   },
   {
@@ -52,7 +52,7 @@ module.exports = [
     priceInPence: 0,
     location: 'London',
     image:
-      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566596/1_iwxati.png',
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746968932/15_g0k1m2.jpg',
     attendees: ['WoofWanderer', 'PawsAndPlay'],
   },
   {
@@ -66,7 +66,7 @@ module.exports = [
     priceInPence: 0,
     location: 'Plymouth',
     image:
-      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/6_dipfkj.png',
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746968933/11_owwjgm.jpg',
     attendees: ['WoofWanderer'],
   },
   {
@@ -80,7 +80,7 @@ module.exports = [
     priceInPence: 0,
     location: 'Manchester',
     image:
-      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746566597/4_kuewdv.png',
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746968933/13_f3unbq.jpg',
     attendees: ['WoofWanderer'],
   },
   {
@@ -95,7 +95,7 @@ module.exports = [
     location: 'Bristol',
     image:
       'https://res.cloudinary.com/dafsdsmus/image/upload/v1746616893/p1hpdkb76dtpkc4ph4cr.jpg',
-    attendees: ['PawsAndPlay', 'WoofWanderer'],
+    attendees: ['WoofWanderer'],
   },
   {
     title: 'Howl-o-Ween Parade',
@@ -109,6 +109,20 @@ module.exports = [
     location: 'Birmingham',
     image:
       'https://res.cloudinary.com/dafsdsmus/image/upload/v1746619180/getm3cbw7prbrdkc8goh.jpg',
-    attendees: ['FetchMaster', 'PawsAndPlay'],
+    attendees: ['PawsAndPlay'],
+  },
+  {
+    title: 'Herding Heroes Challenge',
+    organiser: 'FetchMaster',
+    start_date: '2024-09-21 10:00:00',
+    end_date: '2024-09-21 14:00:00',
+    description:
+      'Test your dog’s herding instincts in this fun and challenging trial course. Great for beginners and pros alike!',
+    category: 'Herding-Trial',
+    priceInPence: 0,
+    location: 'Leeds',
+    image:
+      'https://res.cloudinary.com/dafsdsmus/image/upload/v1746968932/14_xrruxb.jpg',
+    attendees: ['PawsAndPlay', 'WoofWanderer'],
   },
 ];
