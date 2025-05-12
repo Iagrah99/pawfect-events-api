@@ -1,5 +1,6 @@
 const request = require('supertest');
 const app = require('../server');
+const path = require('path');
 const db = require('../db/connection');
 const data = require('../db/data/test-data/index');
 const seed = require('../db/seed');
@@ -291,112 +292,106 @@ describe('GET /api/events/:event_id/attendees', () => {
 });
 
 describe('POST /api/users', () => {
-  test('status 201: should respond with the user object that was created with the correct properties including the default avatar_url value if one is not specified by the user', () => {
+  test('status 201: creates user with default avatar when no file is uploaded', () => {
     return request(app)
       .post('/api/users')
-      .send({
-        username: 'New User',
-        email: 'newuser@email.com',
-        password: 'NewUser123!',
-        isOrganiser: false,
-        avatarUrl: '',
-      })
+      .field('username', 'New User')
+      .field('email', 'newuser@email.com')
+      .field('password', 'NewUser123!')
+      .field('isOrganiser', 'false') // string format is fine for form-data
       .expect(201)
       .then(({ body }) => {
         const { newUser } = body;
         expect(newUser).toMatchObject({
-          user_id: 6,
+          user_id: expect.any(Number),
           username: 'New User',
           email: 'newuser@email.com',
-          password: expect.any(String),
           is_organiser: false,
           avatar_url: 'https://i.ibb.co/db7BbZ6/default-dog.png',
         });
+        expect(newUser.password).toEqual(expect.any(String));
       });
   });
 
-  test('status 400: should respond with a "bad request" error if a user with the specified email already exists', () => {
+  test('status 201: creates user with uploaded avatar file', async () => {
+    const avatarPath = path.join(__dirname, '../assets/test-avatar.png');
+
+    const { body } = await request(app)
+      .post('/api/users')
+      .field('username', 'DogLover2000')
+      .field('email', 'doglover@example.com')
+      .field('password', 'Woof123!')
+      .field('isOrganiser', 'true')
+      .attach('avatar', avatarPath)
+      .expect(201);
+
+    const { newUser } = body;
+    expect(newUser).toHaveProperty('avatar_url');
+    expect(newUser.avatar_url).toMatch(/^https?:\/\//);
+  }, 15000); // ← 15 second timeout
+
+  test('status 400: rejects duplicate email', () => {
     return request(app)
       .post('/api/users')
-      .send({
-        username: 'PawsAndPray',
-        email: 'pawsandplay@example.com',
-        password: 'BarkLover123!',
-        isOrganiser: true,
-        avatarUrl: '',
-      })
+      .field('username', 'SomeoneNew')
+      .field('email', 'pawsandplay@example.com')
+      .field('password', 'SomePass123!')
+      .field('isOrganiser', 'false')
       .expect(400)
       .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe('A user with that email already exists');
+        expect(body.msg).toBe('A user with that email already exists');
       });
   });
 
-  test('status 400: should respond with a "bad request" error if a user with the specified username already exists', () => {
+  test('status 400: rejects duplicate username', () => {
     return request(app)
       .post('/api/users')
-      .send({
-        username: 'PawsAndPlay',
-        email: 'pawsandpray@example.com',
-        password: 'BarkLover123!',
-        isOrganiser: true,
-        avatarUrl: '',
-      })
+      .field('username', 'PawsAndPlay')
+      .field('email', 'unique@example.com')
+      .field('password', 'SomePass123!')
+      .field('isOrganiser', 'false')
       .expect(400)
       .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe('A user with that username already exists');
+        expect(body.msg).toBe('A user with that username already exists');
       });
   });
 
-  test('status 400: should respond with a "bad request" error if no email is provided', () => {
+  test('status 400: rejects empty email', () => {
     return request(app)
       .post('/api/users')
-      .send({
-        username: 'New User',
-        email: '',
-        password: 'NewUser123!',
-        isOrganiser: false,
-        avatarUrl: '',
-      })
+      .field('username', 'New User')
+      .field('email', '')
+      .field('password', 'NewUser123!')
+      .field('isOrganiser', 'false')
       .expect(400)
       .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe('Please provide an email');
+        expect(body.msg).toBe('Please provide an email');
       });
   });
 
-  test('status 400: should respond with a "bad request" error if no username is provided', () => {
+  test('status 400: rejects empty username', () => {
     return request(app)
       .post('/api/users')
-      .send({
-        username: '',
-        email: 'newuser@email.com',
-        password: 'NewUser123',
-        isOrganiser: false,
-        avatarUrl: '',
-      })
+      .field('username', '')
+      .field('email', 'someone@email.com')
+      .field('password', 'NewUser123!')
+      .field('isOrganiser', 'false')
       .expect(400)
       .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe('Please provide a username');
+        expect(body.msg).toBe('Please provide a username');
       });
   });
 
-  test('status 400: should respond with a "bad request" error if no password is provided', () => {
+  test('status 400: rejects empty password', () => {
     return request(app)
       .post('/api/users')
-      .send({
-        username: 'New User',
-        email: 'newuser@email.com',
-        password: '',
-        isOrganiser: false,
-        avatarUrl: '',
-      })
+      .field('username', 'New User')
+      .field('email', 'newuser@email.com')
+      .field('password', '')
+      .field('isOrganiser', 'false')
       .expect(400)
       .then(({ body }) => {
-        const { msg } = body;
-        expect(msg).toBe('Please provide a password');
+        expect(body.msg).toBe('Please provide a password');
       });
   });
 });

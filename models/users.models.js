@@ -63,10 +63,6 @@ module.exports.addUser = async (
   isOrganiser,
   avatarUrl
 ) => {
-  if (!avatarUrl) {
-    avatarUrl = 'https://i.ibb.co/db7BbZ6/default-dog.png';
-  }
-
   if (!email) {
     return Promise.reject({ status: 400, msg: 'Please provide an email' });
   }

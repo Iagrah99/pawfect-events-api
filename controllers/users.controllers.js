@@ -12,6 +12,7 @@ const {
   deleteEventAttending,
 } = require('../models/users.models.js');
 const { getPassword } = require('../utils/getPassword.js');
+const { UploadImage } = require('../utils/UploadImage');
 
 module.exports.getUsers = async (req, res, next) => {
   try {
@@ -43,16 +44,27 @@ module.exports.getUserEventsAttending = async (req, res, next) => {
 };
 
 module.exports.registerUser = async (req, res, next) => {
-  const { username, email, password, isOrganiser, avatarUrl } = req.body;
+  const { username, email, password, isOrganiser } = req.body;
+  const file = req.file;
 
   try {
+    let avatarUrl = 'https://i.ibb.co/db7BbZ6/default-dog.png';
+
+    if (file) {
+      const base64Image = `data:${file.mimetype};base64,${file.buffer.toString(
+        'base64'
+      )}`;
+      avatarUrl = await UploadImage(base64Image);
+    }
+
     const newUser = await addUser(
       username,
       email,
       password,
-      isOrganiser,
+      isOrganiser === 'true' || isOrganiser === true,
       avatarUrl
     );
+
     res.status(201).send({ newUser });
   } catch (err) {
     next(err);

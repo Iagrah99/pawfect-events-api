@@ -25,6 +25,8 @@ const {
 
 const { getCategories } = require('./controllers/categories.controller.js');
 
+const upload = require('./utils/upload');
+
 const app = express();
 
 app.use(express.json());
@@ -34,7 +36,7 @@ app.get('/api', getEndpoints);
 app.get('/api/users', getUsers);
 app.get('/api/users/:user_id', getUserById);
 app.get('/api/users/:user_id/attending', getUserEventsAttending);
-app.post('/api/users', registerUser);
+app.post('/api/users', upload.single('avatar'), registerUser);
 app.post('/api/users/login', loginUser);
 app.post('/api/users/:user_id/attending', addUserEventsAttending);
 app.delete('/api/users/:user_id', removeUserById);
